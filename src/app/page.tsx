@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Toolbar from "@/components/Toolbar";
 import QuotationDoc from "@/components/QuotationDoc";
 import QuotationPrintView from "@/components/QuotationPrintView";
-import { sampleState, sampleStateKiran, blankState } from "@/lib/sampleData";
+import { sampleState, sampleStateKiran, sampleStateRavi, blankState } from "@/lib/sampleData";
 import { fmt, computeTotals } from "@/lib/totals";
 import { listQuotes, loadQuote, saveQuote, deleteQuote, QuoteListItem } from "@/lib/quotesRepo";
 import type { QuoteState } from "@/lib/types";
@@ -114,6 +114,7 @@ export default function Home() {
           onDelete={handleDelete}
           onSampleRanjith={() => loadSample("Ranjith", sampleState)}
           onSampleKiran={() => loadSample("Kiran", sampleStateKiran)}
+          onSampleRavi={() => loadSample("Ravi Kumar", sampleStateRavi)}
           onNewBlank={handleNewBlank}
           onSave={handleSave}
           onPrint={handlePrint}

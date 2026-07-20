@@ -190,33 +190,7 @@ export default function QuotationDoc({ state, setState }: Props) {
           />
 
           <h2 className="doctitle">
-            <span className="num">04</span> Base Construction Cost
-          </h2>
-          <div className="cost-formula">
-            <span>Rate</span>
-            <input
-              className="field-input"
-              type="number"
-              style={{ width: 110 }}
-              value={state.baseRate}
-              onChange={(e) => setState((s) => ({ ...s, baseRate: parseFloat(e.target.value) || 0 }))}
-            />
-            <span>/ sqft</span>
-            <span className="eq">×</span>
-            <span>{totals.totalArea}</span> sqft
-            <span className="eq">=</span>
-            <strong>{fmt(totals.baseCost)}</strong>
-          </div>
-          <h3 className="subhead">What This Rate Includes</h3>
-          <textarea
-            className="field-input"
-            rows={3}
-            value={state.costIncludes}
-            onChange={(e) => setState((s) => ({ ...s, costIncludes: e.target.value }))}
-          />
-
-          <h2 className="doctitle">
-            <span className="num">05</span> Specifications &amp; Materials
+            <span className="num">04</span> Specifications &amp; Materials
           </h2>
           <div>
             {state.specs.map((cat) => (
@@ -262,6 +236,32 @@ export default function QuotationDoc({ state, setState }: Props) {
           <button className="add-btn" onClick={addSpecCategory}>
             + Add specification category
           </button>
+
+          <h2 className="doctitle">
+            <span className="num">05</span> Base Construction Cost
+          </h2>
+          <div className="cost-formula">
+            <span>Rate</span>
+            <input
+              className="field-input"
+              type="number"
+              style={{ width: 110 }}
+              value={state.baseRate}
+              onChange={(e) => setState((s) => ({ ...s, baseRate: parseFloat(e.target.value) || 0 }))}
+            />
+            <span>/ sqft</span>
+            <span className="eq">×</span>
+            <span>{totals.totalArea}</span> sqft
+            <span className="eq">=</span>
+            <strong>{fmt(totals.baseCost)}</strong>
+          </div>
+          <h3 className="subhead">What This Rate Includes</h3>
+          <textarea
+            className="field-input"
+            rows={3}
+            value={state.costIncludes}
+            onChange={(e) => setState((s) => ({ ...s, costIncludes: e.target.value }))}
+          />
 
           <h2 className="doctitle">
             <span className="num">06</span> Client Requirement Cost Break-up

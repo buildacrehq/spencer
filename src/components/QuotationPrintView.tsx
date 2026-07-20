@@ -107,22 +107,7 @@ export default function QuotationPrintView({ state }: Props) {
           <StaticBlock>{state.foundationScope}</StaticBlock>
 
           <h2 className="doctitle">
-            <span className="num">04</span> Base Construction Cost
-          </h2>
-          <div className="cost-formula">
-            <span>Rate</span>
-            <strong>{state.baseRate}</strong>
-            <span>/ sqft</span>
-            <span className="eq">×</span>
-            <span>{totals.totalArea}</span> sqft
-            <span className="eq">=</span>
-            <strong>{fmt(totals.baseCost)}</strong>
-          </div>
-          <h3 className="subhead">What This Rate Includes</h3>
-          <StaticBlock>{state.costIncludes}</StaticBlock>
-
-          <h2 className="doctitle">
-            <span className="num">05</span> Specifications &amp; Materials
+            <span className="num">04</span> Specifications &amp; Materials
           </h2>
           <div>
             {state.specs.map((cat) => (
@@ -142,6 +127,21 @@ export default function QuotationPrintView({ state }: Props) {
               </div>
             ))}
           </div>
+
+          <h2 className="doctitle">
+            <span className="num">05</span> Base Construction Cost
+          </h2>
+          <div className="cost-formula">
+            <span>Rate</span>
+            <strong>{state.baseRate}</strong>
+            <span>/ sqft</span>
+            <span className="eq">×</span>
+            <span>{totals.totalArea}</span> sqft
+            <span className="eq">=</span>
+            <strong>{fmt(totals.baseCost)}</strong>
+          </div>
+          <h3 className="subhead">What This Rate Includes</h3>
+          <StaticBlock>{state.costIncludes}</StaticBlock>
 
           <h2 className="doctitle">
             <span className="num">06</span> Client Requirement Cost Break-up

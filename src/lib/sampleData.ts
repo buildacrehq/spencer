@@ -230,3 +230,172 @@ export function sampleStateKiran(): QuoteState {
 
   return s;
 }
+
+// Ported from the real "Mr.Ravi Kumar NS (KR Puram)" PDF quotation supplied
+// 2026-07-20 — this document is the current main content/structure reference
+// (see project memory). Unlike sampleStateKiran, most spec categories here
+// have genuinely different data from Ranjith's (different brands/pricing,
+// plus a whole new "Warranty" category), so this builds its own specs[]
+// rather than patching Ranjith's. terms.exec and workflow are reused as-is
+// from sampleState() — this PDF's wording for those two is functionally
+// identical, just reformatted.
+export function sampleStateRavi(): QuoteState {
+  const s = sampleState();
+  s.client = {
+    name:"Mr Ravi Kumar N S", place:"Bengaluru", location:"Nambekaipura (KR Puram)",
+    khatha:"A khatha", siteDim:"20 X 30", roadFacing:"South Facing", setback:"550",
+    soilCarting:"YES", startDate:"2026-07-20", quoteDate:"2026-07-20",
+    issuedBy:"BuildAcre Construction Company", parentCo:"BlackFyre Infra Private Limited", validity:"2026-07-30"
+  };
+  s.floors = [
+    {id:uid(), floor:"Ground Floor", plan:"Parking (Pillars/Columns, Beams, Slab/Mould, Staircase and parking tiles are considered)", purpose:"OWN", area:550},
+    {id:uid(), floor:"First Floor", plan:"Triplex Starts (Hall + Kitchen + 1 Common Washroom + 1 Pooja Room + Internal Staircase)", purpose:"OWN", area:550},
+    {id:uid(), floor:"Second Floor", plan:"2 Bedrooms with 2 attached washrooms + Internal Staircase", purpose:"OWN", area:550},
+    {id:uid(), floor:"Third Floor", plan:"Staircase Headroom + 300 sqft Master Bedroom with attached washroom", purpose:"OWN", area:350},
+  ];
+  s.baseRate = 1907;
+  s.foundationScope = "Site Cleaning\nSite Survey\nSoil Testing\nArchitectural Design\nStructural Design\nElevation Design\nLabour Shed Construction\nMarking using Total Station Survey\n6 Feet Excavation (As per Soil Report)\n10–12 Pillars (Isolated Footings)\nFooting Concreting\nSump Concreting with Waterproofing & Bitumen Coating\nPlinth Beam – 1.5 to 2 Feet Height, 6 Inch Width\nPlinth Concreting\nAnti-Termite Treatment (Twice)\nSoil Refilling & Soil Consolidation";
+  s.costIncludes = "Architectural & structural services, dedicated Site Engineer, Project Manager, Project Coordinators, labour for curing, and material safety checks for all materials used on site.";
+
+  s.specs = [
+    {id:uid(), title:"Materials", rows:[
+      {id:uid(), item:"Steel", spec:"High strength TMT bars — TATA Fe 555 TMT (₹76,000/-)"},
+      {id:uid(), item:"Cement (OPC)", spec:"Birla Cement – 53 Grade (₹410/bag)"},
+      {id:uid(), item:"Cement (OPC/PPC)", spec:"UltraTech Cement – 43 Grade (₹380/bag)"},
+      {id:uid(), item:"Plumbing Pipes", spec:"CPVC pipes & fittings — Ashirvad / Supreme Industries"},
+      {id:uid(), item:"Electrical Wires", spec:"Fire-resistant wires — Finolex Cables"},
+      {id:uid(), item:"Switches & Sockets", spec:"Modular switches & sockets — Anchor by Panasonic / GM Modular"},
+    ]},
+    {id:uid(), title:"Warranty", rows:[
+      {id:uid(), item:"Structural", spec:"10 years (if structural design by Buildacre)"},
+      {id:uid(), item:"Construction & Service", spec:"1 year from date of handover"},
+      {id:uid(), item:"Waterproofing", spec:"5 years"},
+      {id:uid(), item:"Electrical Fixtures (Switches/Plates)", spec:"As per manufacturer"},
+      {id:uid(), item:"Plumbing Fixtures", spec:"As per manufacturer"},
+      {id:uid(), item:"UPVC Window Frames", spec:"As per manufacturer"},
+    ]},
+    {id:uid(), title:"Design & Drawings", rows:[
+      {id:uid(), item:"Site Cleaning", spec:"Initial site cleaning before commencement of design and construction activities"},
+      {id:uid(), item:"Site Survey", spec:"Detailed site measurements and level survey for accurate planning"},
+      {id:uid(), item:"Soil Test", spec:"Soil investigation to determine bearing capacity and foundation suitability"},
+      {id:uid(), item:"2D Architectural Drawings", spec:"Detailed floor plans, layout drawings, basic architectural documentation, working drawings of each floor, window & door drawings"},
+      {id:uid(), item:"Structural Drawings", spec:"RCC structural design and drawings as per applicable codes — footing drawing, excavation layout, plinth layout, slab reinforcement, beam reinforcement, slab shuttering drawings, staircase details"},
+      {id:uid(), item:"Electrical Drawings", spec:"Electrical layout including points, switches, and lighting"},
+      {id:uid(), item:"Plumbing Drawings", spec:"Water supply and drainage layout drawings"},
+      {id:uid(), item:"3D Elevation", spec:"External 3D views as visible from adjacent roads only"},
+      {id:uid(), item:"Design File Format", spec:"All drawings and designs provided in non-editable PDF format"},
+    ]},
+    {id:uid(), title:"Earthwork", rows:[
+      {id:uid(), item:"Foundation Type", spec:"Isolated Footings"},
+      {id:uid(), item:"Soil Bearing Capacity", spec:"180 kN/m² and above"},
+      {id:uid(), item:"Foundation Depth", spec:"Up to 6 feet"},
+      {id:uid(), item:"Soil Condition", spec:"Regular soil assumed"},
+      {id:uid(), item:"Note", spec:"Final depth subject to soil test (discussed during meeting)"},
+    ]},
+    {id:uid(), title:"RCC & Masonry", rows:[
+      {id:uid(), item:"Structural System", spec:"RCC Framed Structure"},
+      {id:uid(), item:"Concrete Grade", spec:"M20 for Footings, M25 for Slabs"},
+      {id:uid(), item:"Aggregates", spec:"20 mm & 40 mm aggregates"},
+      {id:uid(), item:"Design Mix", spec:"As per Structural Designer"},
+      {id:uid(), item:"Plinth Height", spec:"1 ft 6 inches above existing ground level"},
+      {id:uid(), item:"PCC at Plinth", spec:"100 mm thickness below ground floor flooring"},
+      {id:uid(), item:"Masonry", spec:"4 inch blocks for internal walls, 6 inch blocks for external walls"},
+      {id:uid(), item:"Internal Plaster", spec:"15 mm thick (1:5 cement mortar)"},
+      {id:uid(), item:"Ceiling Plaster", spec:"15 mm thick (1:4 cement mortar)"},
+      {id:uid(), item:"External Plaster", spec:"Total 20 mm thickness (1:5 first coat, 1:3 second coat)"},
+      {id:uid(), item:"Chicken Mesh", spec:"At beam, column and masonry junctions and electrical chasing areas"},
+      {id:uid(), item:"Waterproofing Compound", spec:"Fosroc / Sika Antisol or equivalent"},
+      {id:uid(), item:"Epoxy Mortar", spec:"Used in washroom tile fixing"},
+    ]},
+    {id:uid(), title:"Kitchen", rows:[
+      {id:uid(), item:"Wall Tiles", spec:"Up to 3 ft above counter – ₹80/sqft"},
+      {id:uid(), item:"Kitchen Counter", spec:"2 ft width, 24 mm granite"},
+      {id:uid(), item:"Counter Edge", spec:"Double layer nosing with polishing (₹200/sqft)"},
+      {id:uid(), item:"Kitchen Sink", spec:"Stainless steel single bowl – up to ₹10,000"},
+      {id:uid(), item:"Kitchen Faucet", spec:"Up to ₹10,000 (Parryware / Hindware / Jaquar / Waterport)"},
+      {id:uid(), item:"Water Purifier", spec:"Provision near sink"},
+      {id:uid(), item:"Washing Machine", spec:"Inlet & outlet provision in utility"},
+      {id:uid(), item:"Number of Kitchens", spec:"1"},
+    ]},
+    {id:uid(), title:"Bathroom", rows:[
+      {id:uid(), item:"Wall Tiles", spec:"Up to ceiling height – ₹60/sqft"},
+      {id:uid(), item:"Floor Tiles", spec:"Anti-skid tiles up to ₹60/sqft"},
+      {id:uid(), item:"Exhaust Fan", spec:"Provision included"},
+      {id:uid(), item:"Tile Joints & Grouting", spec:"Spacer joints; polymeric grout (Roff / Weber / equivalent)"},
+      {id:uid(), item:"Sanitary Fittings", spec:"Jaquar make — EWC, health faucet, wash basin, basin mixer, overhead shower with 2-in-1 wall mixer"},
+      {id:uid(), item:"Plumbing Pipes", spec:"CPVC – Ashirvad / Supreme"},
+      {id:uid(), item:"Sanitary Budget", spec:"₹40,000 per washroom × 4 washrooms = ₹1,60,000 total"},
+      {id:uid(), item:"Bathroom Doors", spec:"Waterproof flush doors (WPC)"},
+      {id:uid(), item:"External Pipes", spec:"Fixed with raised clamps"},
+    ]},
+    {id:uid(), title:"Doors & Windows", rows:[
+      {id:uid(), item:"Timber Quality", spec:"Well seasoned, free from defects"},
+      {id:uid(), item:"WPC Works", spec:"Two coats of paint"},
+      {id:uid(), item:"Window Chajjas", spec:"1 ft projection, 6 inch bearing"},
+      {id:uid(), item:"Windows", spec:"₹600/sqft incl. grills & fittings — window area considered 200 sqft — Windows budget ₹1,20,000"},
+      {id:uid(), item:"Main Door", spec:"Teak wood – ₹50,000 incl. fittings (1 unit, OWN), 7 ft × 4 ft"},
+      {id:uid(), item:"Pooja Door", spec:"Teak wood – ₹20,000 incl. fittings × 1 unit"},
+      {id:uid(), item:"Internal Doors", spec:"Honne wood – ₹20,000 each × 3 doors (Red Saal frame & vinyl doors)"},
+      {id:uid(), item:"Utility Doors", spec:"WPC – ₹10,000 each × 1 door"},
+      {id:uid(), item:"Washroom Doors", spec:"WPC – ₹10,000 each × 4 doors"},
+      {id:uid(), item:"Door Hardware", spec:"Hinges, tower bolts, locks, magnetic stopper (Europa / Godrej)"},
+      {id:uid(), item:"Doors Budget", spec:"Total ₹1,80,000"},
+    ]},
+    {id:uid(), title:"Painting", rows:[
+      {id:uid(), item:"Exterior Paint", spec:"1 coat Asian primer + 2 coats Ace exterior emulsion"},
+      {id:uid(), item:"Interior Putty", spec:"2 coats JK Putty"},
+      {id:uid(), item:"Interior Primer", spec:"1 coat"},
+      {id:uid(), item:"Interior Paint", spec:"2 coats Asian Premium"},
+    ]},
+    {id:uid(), title:"Flooring", rows:[
+      {id:uid(), item:"Living", spec:"Vitrified tiles – up to ₹100/sqft"},
+      {id:uid(), item:"Dining / Kitchen", spec:"Vitrified tiles – up to ₹100/sqft"},
+      {id:uid(), item:"Bedrooms", spec:"Vitrified tiles – up to ₹80/sqft"},
+      {id:uid(), item:"Staircase", spec:"Anti-skid granite – up to ₹100/sqft"},
+      {id:uid(), item:"Parking", spec:"Anti-skid tiles – up to ₹50/sqft"},
+      {id:uid(), item:"Balconies & Open Areas", spec:"Anti-skid tiles – up to ₹50/sqft"},
+      {id:uid(), item:"Skirting", spec:"Matching granite / tiles"},
+    ]},
+    {id:uid(), title:"Electrical", rows:[
+      {id:uid(), item:"Electrical Wires", spec:"Fireproof wires – Finolex"},
+      {id:uid(), item:"Switches & Sockets", spec:"Anchor / GM"},
+      {id:uid(), item:"Electrical Points", spec:"As per approved electrical drawings"},
+    ]},
+    {id:uid(), title:"Technical Information", rows:[
+      {id:uid(), item:"Footing Depth", spec:"Up to 6 feet (based on soil test)"},
+      {id:uid(), item:"Footing Concreting", spec:"As per structural drawings"},
+      {id:uid(), item:"Footing Width", spec:"As per structural design & site conditions"},
+      {id:uid(), item:"Plinth Height", spec:"Minimum 1.5 feet above ground level"},
+      {id:uid(), item:"Plinth Width", spec:"6 inches"},
+      {id:uid(), item:"Concrete Grades", spec:"M20 (footing), M25 (slab)"},
+      {id:uid(), item:"Concreting Method", spec:"RMC / Manual"},
+      {id:uid(), item:"Cement for Concreting", spec:"UltraTech"},
+      {id:uid(), item:"Reinforcement", spec:"16mm & 20mm for beams; 8mm, 10mm, 12mm, 16mm for slabs"},
+      {id:uid(), item:"Anti-Termite Treatment", spec:"Included"},
+    ]},
+  ];
+
+  s.requirements = [
+    {id:uid(), item:"CCTV Provision", desc:"2 CCTV connection provisions", cost:10000},
+    {id:uid(), item:"CCTV Provision", desc:"1 connection for onsite monitoring — ensures transparency", cost:5000},
+    {id:uid(), item:"UPS Provision", desc:"1 unit", cost:10000},
+    {id:uid(), item:"RCC Sump", desc:"12,000L × ₹13/L", cost:156000},
+    {id:uid(), item:"Main Gate", desc:"MS gate, 6 ft height", cost:30000},
+    {id:uid(), item:"Staircase Railing", desc:"MS railing ₹600/rft × 25 rft (₹15,000) + SS railing ₹1,200/rft × 50 rft (₹60,000)", cost:75000},
+    {id:uid(), item:"Gas Pipeline", desc:"1 kitchen", cost:20000},
+    {id:uid(), item:"Ramp from Plinth", desc:"", cost:30000},
+    {id:uid(), item:"Screed Concreting", desc:"Level surface + waterproofing", cost:30000},
+    {id:uid(), item:"EV Charging Point", desc:"2 points at parking", cost:20000},
+    {id:uid(), item:"Lift Provision", desc:"5×5×6 shaft, 5000L — barbending, steel, centering, shuttering, concreting, labour + extra 2 columns", cost:95000},
+    {id:uid(), item:"Sanitary Pits", desc:"2 pits", cost:30000},
+    {id:uid(), item:"MS Stairs for Overhead Tank", desc:"", cost:15000},
+    {id:uid(), item:"Elevation Work", desc:"1% of project cost", cost:40000},
+  ];
+
+  s.terms.included = "Overhead tank (1×2,000L triple-layer tank), parapet wall (4 ft height, terrace floor), weatherproofing course (Dr. Fixit / Fosroc or equivalent), anti-termite treatment (applied twice), compound wall (5 ft height, four sides), cover blocks, chicken mesh & joint mesh at columns/electrical conduits/plumbing lines, ceiling height 10 ft 6 inch clearance with 6 inch slab thickness, bathroom niches, chajjas (based on client inputs), solar point & geyser point, labour shed, overhead tank room (7 ft, sized for two tanks).";
+  s.terms.freeze = "Final architectural, structural, electrical, and plumbing drawings will be frozen before execution. The quoted price is based on the specifications mentioned in this document. Any material change, layout modification, or addition requested after specification freeze will be treated as an upgradation, and the cost impact will be shared in writing before execution. Work will proceed only after client approval of the revised cost. This system ensures cost control and transparency throughout the construction process.";
+  s.terms.adjust = "If footing depth exceeds 6 feet based on soil test recommendations from the structural engineer, additional cost will be applicable. Soil carting beyond 100 meters from the site will attract additional charges. Any structural modifications required due to unforeseen site conditions may result in cost adjustments. Any increase in slab area beyond 50 sq.ft will be calculated as per actuals. Any such cost impact will be discussed with the client and approved before execution.";
+  s.terms.scope = "Borewell & motor\nTemporary electrical board\nGovernment approvals (BBMP, Panchayat etc.)\nWater supply\nRoad/Tree cutting\n\nNote: Assistance for the above things which are client scope will be provided by the company.";
+
+  return s;
+}

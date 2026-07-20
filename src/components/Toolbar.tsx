@@ -11,6 +11,7 @@ interface Props {
   onDelete: () => void;
   onSampleRanjith: () => void;
   onSampleKiran: () => void;
+  onSampleRavi: () => void;
   onNewBlank: () => void;
   onSave: () => void;
   onPrint: () => void;
@@ -27,6 +28,7 @@ export default function Toolbar({
   onDelete,
   onSampleRanjith,
   onSampleKiran,
+  onSampleRavi,
   onNewBlank,
   onSave,
   onPrint,
@@ -59,6 +61,9 @@ export default function Toolbar({
       </button>
       <button className="tbtn tbtn-ghost" onClick={onSampleKiran} disabled={busy}>
         Sample: Kiran
+      </button>
+      <button className="tbtn tbtn-ghost" onClick={onSampleRavi} disabled={busy}>
+        Sample: Ravi Kumar
       </button>
       <button className="tbtn tbtn-ghost" onClick={onNewBlank} disabled={busy}>
         New Blank
