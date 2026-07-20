@@ -151,11 +151,24 @@ table.doc-table input.field-input, table.doc-table textarea.field-input{padding:
 
 /* ---------- SPEC CATEGORY BLOCKS ---------- */
 .spec-block{
-  border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin:20px 0;background:#fffefb;
+  border:1px solid var(--line);border-top:3px solid var(--clay);border-radius:14px;padding:24px 26px;margin:20px 0;background:#fffefb;
   box-shadow:0 2px 10px -4px rgba(28,35,33,0.08);
 }
 .spec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line);}
+.spec-head .icon{font-size:15px;line-height:1;flex-shrink:0;}
 .spec-head .tag{width:9px;height:9px;border-radius:50%;background:var(--clay);flex-shrink:0;}
+
+/* Muted accent per category, cycling through a small palette that stays
+   inside the app's existing teal/clay design language rather than the raw
+   PDF's saturated pastel-per-section look (see spencer_ui_redesign memory
+   for why: full-block color reads as a busy Excel export, this is a
+   restrained middle ground). */
+.spec-block:nth-of-type(6n+1){border-top-color:#0f766e;} .spec-block:nth-of-type(6n+1) .tag{background:#0f766e;}
+.spec-block:nth-of-type(6n+2){border-top-color:#d9622b;} .spec-block:nth-of-type(6n+2) .tag{background:#d9622b;}
+.spec-block:nth-of-type(6n+3){border-top-color:#3b6ea5;} .spec-block:nth-of-type(6n+3) .tag{background:#3b6ea5;}
+.spec-block:nth-of-type(6n+4){border-top-color:#8b5fa3;} .spec-block:nth-of-type(6n+4) .tag{background:#8b5fa3;}
+.spec-block:nth-of-type(6n+5){border-top-color:#4a8f5c;} .spec-block:nth-of-type(6n+5) .tag{background:#4a8f5c;}
+.spec-block:nth-of-type(6n+0){border-top-color:#b8863b;} .spec-block:nth-of-type(6n+0) .tag{background:#b8863b;}
 .cat-title-input{
   font-family:var(--font-fraunces),serif;font-weight:600;font-size:16px;border:none;background:transparent;
   flex:1;border-bottom:1px dashed transparent;padding:3px 0;

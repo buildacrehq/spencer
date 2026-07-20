@@ -12,7 +12,7 @@ import type { QuoteState } from "@/lib/types";
 
 export default function Home() {
   const router = useRouter();
-  const [state, setState] = useState<QuoteState>(() => sampleState());
+  const [state, setState] = useState<QuoteState>(() => sampleStateRavi());
   const [quotes, setQuotes] = useState<QuoteListItem[]>([]);
   const [selectedName, setSelectedName] = useState("");
   const [busy, setBusy] = useState(false);

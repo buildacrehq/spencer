@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 import type { QuoteState, FloorRow, RequirementRow, SpecCategory, SpecRow, Purpose } from "@/lib/types";
 import { uid } from "@/lib/sampleData";
 import { computeTotals, fmt } from "@/lib/totals";
+import { categoryIcon } from "@/lib/categoryIcons";
 
 interface Props {
   state: QuoteState;
@@ -197,6 +198,7 @@ export default function QuotationDoc({ state, setState }: Props) {
               <div className="spec-block" key={cat.id}>
                 <div className="spec-head">
                   <span className="tag"></span>
+                  {categoryIcon(cat.title) && <span className="icon">{categoryIcon(cat.title)}</span>}
                   <input
                     className="cat-title-input"
                     value={cat.title}

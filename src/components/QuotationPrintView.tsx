@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { QuoteState } from "@/lib/types";
 import { computeTotals, fmt } from "@/lib/totals";
+import { categoryIcon } from "@/lib/categoryIcons";
 
 // Print rendering strategy note (see legacy/buildacre-quotation-builder-HANDOFF.md §6
 // for the three bugs the original vanilla-JS DOM-cloning approach had to work around —
@@ -114,6 +115,7 @@ export default function QuotationPrintView({ state }: Props) {
               <div className="spec-block" key={cat.id}>
                 <div className="spec-head">
                   <span className="tag"></span>
+                  {categoryIcon(cat.title) && <span className="icon">{categoryIcon(cat.title)}</span>}
                   <strong style={{ fontFamily: "var(--font-fraunces)", fontSize: 16 }}>{cat.title}</strong>
                 </div>
                 <div>
