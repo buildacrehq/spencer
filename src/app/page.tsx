@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Toolbar from "@/components/Toolbar";
 import QuotationDoc from "@/components/QuotationDoc";
 import QuotationPrintView from "@/components/QuotationPrintView";
@@ -10,6 +11,7 @@ import { listQuotes, loadQuote, saveQuote, deleteQuote, QuoteListItem } from "@/
 import type { QuoteState } from "@/lib/types";
 
 export default function Home() {
+  const router = useRouter();
   const [state, setState] = useState<QuoteState>(() => sampleState());
   const [quotes, setQuotes] = useState<QuoteListItem[]>([]);
   const [selectedName, setSelectedName] = useState("");
@@ -95,6 +97,12 @@ export default function Home() {
 
   const handlePrint = () => window.print();
 
+  const handleLogout = async () => {
+    await fetch("/api/logout", { method: "POST" });
+    router.push("/login");
+    router.refresh();
+  };
+
   return (
     <>
       <div className="screen-only">
@@ -109,6 +117,7 @@ export default function Home() {
           onNewBlank={handleNewBlank}
           onSave={handleSave}
           onPrint={handlePrint}
+          onLogout={handleLogout}
           pillTotal={pillTotal}
           busy={busy}
         />

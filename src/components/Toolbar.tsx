@@ -14,6 +14,7 @@ interface Props {
   onNewBlank: () => void;
   onSave: () => void;
   onPrint: () => void;
+  onLogout: () => void;
   pillTotal: string;
   busy: boolean;
 }
@@ -29,6 +30,7 @@ export default function Toolbar({
   onNewBlank,
   onSave,
   onPrint,
+  onLogout,
   pillTotal,
   busy,
 }: Props) {
@@ -71,6 +73,9 @@ export default function Toolbar({
         <span className="lbl">Total</span>
         <span>{pillTotal}</span>
       </div>
+      <button className="tbtn tbtn-ghost" onClick={onLogout} disabled={busy} style={{ marginLeft: 4 }}>
+        Log out
+      </button>
     </div>
   );
 }
