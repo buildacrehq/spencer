@@ -229,7 +229,12 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
   table.doc-table tr:hover td{background:transparent;}
   .spec-row{border-bottom:1px solid var(--line);}
   h3.subhead{page-break-after:avoid;}
-  table.doc-table, .spec-block{page-break-inside:avoid;}
+  /* Protect individual rows/heads from splitting mid-content, but let tall
+     blocks/tables span multiple pages — avoiding a break on the whole
+     .spec-block was pushing tall categories entirely to the next page,
+     leaving large empty gaps on the page before (reported 2026-07-20). */
+  .spec-row, table.doc-table tr{page-break-inside:avoid;break-inside:avoid;}
+  .spec-head{page-break-after:avoid;break-after:avoid;}
 }
 
 /* Plain-text stand-ins for form controls in the print view, styled to match
