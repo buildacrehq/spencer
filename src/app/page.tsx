@@ -1,0 +1,123 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Toolbar from "@/components/Toolbar";
+import QuotationDoc from "@/components/QuotationDoc";
+import QuotationPrintView from "@/components/QuotationPrintView";
+import { sampleState, sampleStateKiran, blankState } from "@/lib/sampleData";
+import { fmt, computeTotals } from "@/lib/totals";
+import { listQuotes, loadQuote, saveQuote, deleteQuote, QuoteListItem } from "@/lib/quotesRepo";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import type { QuoteState } from "@/lib/types";
+
+export default function Home() {
+  const [state, setState] = useState<QuoteState>(() => sampleState());
+  const [quotes, setQuotes] = useState<QuoteListItem[]>([]);
+  const [selectedName, setSelectedName] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const refreshQuotes = async () => {
+    if (!isSupabaseConfigured) return;
+    try {
+      setQuotes(await listQuotes());
+    } catch (e) {
+      console.error("Could not list saved quotes", e);
+    }
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    if (isSupabaseConfigured) {
+      listQuotes()
+        .then((q) => {
+          if (!cancelled) setQuotes(q);
+        })
+        .catch((e) => console.error("Could not list saved quotes", e));
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const pillTotal = fmt(computeTotals(state).grandTotal);
+
+  const handleOpen = async () => {
+    if (!selectedName) return;
+    setBusy(true);
+    try {
+      setState(await loadQuote(selectedName));
+    } catch {
+      alert("Could not load that quote.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!selectedName) return;
+    if (!confirm(`Delete saved quote "${selectedName}"?`)) return;
+    setBusy(true);
+    try {
+      await deleteQuote(selectedName);
+      setSelectedName("");
+      await refreshQuotes();
+    } catch {
+      alert("Could not delete.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleSave = async () => {
+    const name = prompt("Save this quote as (e.g. client name):", state.client.name || "Untitled Quote");
+    if (!name) return;
+    setBusy(true);
+    try {
+      await saveQuote(name, state);
+      await refreshQuotes();
+      setSelectedName(name);
+      alert(`Saved "${name}".`);
+    } catch {
+      alert("Could not save — check Supabase is configured (NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY).");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const loadSample = (label: string, factory: () => QuoteState) => {
+    if (confirm(`Load the ${label} sample quotation? Unsaved changes will be lost.`)) {
+      setState(factory());
+    }
+  };
+
+  const handleNewBlank = () => {
+    if (confirm("Start a new blank quotation? Unsaved changes will be lost.")) {
+      setState(blankState());
+    }
+  };
+
+  const handlePrint = () => window.print();
+
+  return (
+    <>
+      <div className="screen-only">
+        <Toolbar
+          quotes={quotes}
+          selectedName={selectedName}
+          onSelectedNameChange={setSelectedName}
+          onOpen={handleOpen}
+          onDelete={handleDelete}
+          onSampleRanjith={() => loadSample("Ranjith", sampleState)}
+          onSampleKiran={() => loadSample("Kiran", sampleStateKiran)}
+          onNewBlank={handleNewBlank}
+          onSave={handleSave}
+          onPrint={handlePrint}
+          pillTotal={pillTotal}
+          busy={busy}
+        />
+        <QuotationDoc state={state} setState={setState} />
+      </div>
+      <QuotationPrintView state={state} />
+    </>
+  );
+}

@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Ported verbatim (selectors/values unchanged) from
+   legacy/buildacre-quotation-builder.html <style> block.
+   Only font-family names were swapped for next/font CSS variables.
+--------------------------------------------------------------- */
+
+:root{
+  --ink:#1c2321;
+  --paper:#faf6ef;
+  --teal:#0f766e;
+  --teal-soft:#e4f1ef;
+  --clay:#d9622b;
+  --clay-soft:#fbe9e0;
+  --sand:#efe9db;
+  --line:#e1d9c8;
+  --muted:#7a7263;
+  --danger:#b3432c;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#e9e3d3 0%, #f1ece0 400px, var(--sand) 100%);
+  color:var(--ink);
+  font-family:var(--font-inter),sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- STICKY TOOLBAR ---------- */
+.toolbar{
+  position:sticky; top:0; z-index:40;
+  background:rgba(28,35,33,0.97);
+  backdrop-filter:blur(8px);
+  color:var(--paper);
+  padding:16px 32px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  border-bottom:1px solid #3a4844;
+  box-shadow:0 4px 16px rgba(0,0,0,0.15);
+}
+.toolbar .brand{display:flex;align-items:center;gap:10px;margin-right:auto;padding-right:16px;}
+.toolbar .brand span{font-family:var(--font-fraunces),serif;font-size:18px;letter-spacing:0.06em;}
+.toolbar select{
+  background:#2a3230;color:var(--paper);border:1px solid #4a524e;border-radius:8px;
+  padding:9px 12px;font-size:13px;max-width:170px;
+}
+.tbtn{
+  border:none;border-radius:8px;padding:9px 16px;cursor:pointer;font-weight:600;font-size:13px;
+  display:inline-flex;align-items:center;gap:6px;transition:filter .12s ease, transform .08s ease, box-shadow .12s ease;
+  white-space:nowrap;
+}
+.tbtn:active{transform:scale(0.96);}
+.tbtn:hover{filter:brightness(1.1);box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+.tbtn-ghost{background:#2a3230;color:var(--paper);border:1px solid #4a524e;}
+.tbtn-teal{background:var(--teal);color:white;}
+.tbtn-clay{background:var(--clay);color:white;}
+.total-pill{
+  font-family:var(--font-jetbrains-mono),monospace;
+  background:var(--teal);
+  color:white;
+  border-radius:24px;
+  padding:9px 20px;
+  font-size:15px;
+  font-weight:600;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 2px 10px rgba(15,118,110,0.4);
+}
+.total-pill .lbl{font-family:var(--font-inter),sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;opacity:0.85;}
+
+/* ---------- DOCUMENT SHELL ---------- */
+.page{max-width:940px;margin:0 auto;padding:56px 28px 120px 28px;}
+.doc{
+  background:var(--paper);
+  border-radius:20px;
+  box-shadow:0 30px 70px -25px rgba(28,35,33,0.4), 0 4px 16px rgba(28,35,33,0.1);
+  padding:0 0 60px 0;
+  overflow:hidden;
+}
+
+.cover{
+  text-align:center;
+  padding:72px 40px 44px 40px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(15,118,110,0.07), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(217,98,43,0.07), transparent 45%);
+  border-bottom:1px solid var(--line);
+}
+.cover .wordmark{font-family:var(--font-fraunces),serif;font-size:44px;letter-spacing:0.05em;font-weight:600;margin:16px 0 4px 0;}
+.cover .subwordmark{font-size:12px;letter-spacing:0.16em;color:var(--muted);text-transform:uppercase;}
+.brandbar{display:flex;height:6px;width:72px;margin:22px auto 0 auto;border-radius:3px;overflow:hidden;}
+.brandbar span{flex:1;}
+.brandbar .t{background:var(--teal);}
+.brandbar .c{background:var(--clay);}
+
+.doc-body{padding:48px 56px 48px 56px;}
+@media (max-width:640px){ .doc-body{padding:28px 22px 28px 22px;} .cover{padding:44px 20px 28px 20px;} .cover .wordmark{font-size:32px;} }
+
+h2.doctitle{font-family:var(--font-fraunces),serif;font-size:24px;margin:56px 0 8px 0;display:flex;align-items:center;gap:12px;padding-top:8px;border-top:1px solid var(--line);}
+h2.doctitle:first-of-type{border-top:none;margin-top:8px;}
+h2.doctitle .num{
+  font-family:var(--font-jetbrains-mono),monospace;font-size:12px;background:var(--ink);color:var(--paper);
+  border-radius:6px;padding:4px 9px;font-weight:700;
+}
+.section-hint{font-size:13px;color:var(--muted);margin:0 0 20px 0;}
+
+/* ---------- INLINE EDITABLE FIELDS ---------- */
+.kv-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-bottom:12px;}
+@media (max-width:640px){.kv-grid{grid-template-columns:1fr;}}
+.kv-field{border-bottom:1px solid var(--line);padding:16px 4px;}
+.kv-field label{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;font-weight:600;}
+.field-input{
+  width:100%;border:none;background:transparent;font-size:14.5px;color:var(--ink);
+  padding:4px 0;border-bottom:1px dashed transparent;font-family:var(--font-inter),sans-serif;
+}
+.field-input:hover{border-bottom-color:var(--line);}
+.field-input:focus{outline:none;border-bottom-color:var(--teal);}
+textarea.field-input{resize:vertical;min-height:60px;}
+
+/* ---------- TABLES ---------- */
+table.doc-table{width:100%;border-collapse:collapse;margin:14px 0 8px 0;border-radius:10px;overflow:hidden;}
+table.doc-table th{
+  text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);
+  padding:14px 16px;border-bottom:2px solid var(--ink);background:var(--sand);
+}
+table.doc-table td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top;}
+table.doc-table tr:hover td{background:#fbf9f4;}
+table.doc-table tr.total-row td{
+  border-top:2px solid var(--ink);border-bottom:none;background:var(--teal-soft);
+  font-weight:700;font-family:var(--font-jetbrains-mono),monospace;font-size:13.5px;color:var(--teal);
+  padding:16px;
+}
+table.doc-table input.field-input, table.doc-table textarea.field-input{padding:6px 4px;}
+#floorBody td:first-child input, #reqBody td:first-child input{font-weight:700;}
+#floorBody select{font-weight:700;color:var(--teal);}
+.num-cell input{text-align:right;font-family:var(--font-jetbrains-mono),monospace;font-size:13.5px;}
+.del-btn{
+  background:none;border:none;color:var(--muted);cursor:pointer;font-size:17px;line-height:1;
+  padding:4px 8px;border-radius:6px;
+}
+.del-btn:hover{color:var(--danger);background:var(--clay-soft);}
+.add-btn{
+  margin-top:12px;background:transparent;border:1.5px dashed var(--line);color:var(--muted);
+  padding:10px 18px;border-radius:9px;cursor:pointer;font-size:12.5px;font-weight:600;
+  transition:all .15s ease;
+}
+.add-btn:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-soft);}
+
+/* ---------- SPEC CATEGORY BLOCKS ---------- */
+.spec-block{
+  border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin:20px 0;background:#fffefb;
+  box-shadow:0 2px 10px -4px rgba(28,35,33,0.08);
+}
+.spec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line);}
+.spec-head .tag{width:9px;height:9px;border-radius:50%;background:var(--clay);flex-shrink:0;}
+.cat-title-input{
+  font-family:var(--font-fraunces),serif;font-weight:600;font-size:16px;border:none;background:transparent;
+  flex:1;border-bottom:1px dashed transparent;padding:3px 0;
+}
+.cat-title-input:hover{border-bottom-color:var(--line);}
+.cat-title-input:focus{outline:none;border-bottom-color:var(--teal);}
+.spec-row{display:flex;gap:16px;align-items:center;padding:10px 2px;border-bottom:1px solid var(--line);}
+.spec-row:last-of-type{border-bottom:none;}
+.spec-row input:first-child{flex:0 0 34%;font-weight:600;}
+.spec-row input{flex:1;}
+
+/* ---------- BASE COST STRIP ---------- */
+.cost-formula{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--sand);
+  border-radius:14px;padding:24px 26px;margin:20px 0 28px 0;font-size:14px;
+}
+.cost-formula input{width:120px;}
+.cost-formula .eq{font-family:var(--font-jetbrains-mono),monospace;font-weight:700;color:var(--teal);}
+
+/* ---------- GRAND TOTAL ---------- */
+.grand-total-box{
+  background:var(--ink);color:var(--paper);border-radius:16px;padding:36px 40px;margin:32px 0 12px 0;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  box-shadow:0 12px 32px -12px rgba(28,35,33,0.5);
+}
+.grand-total-box .label{font-size:12.5px;text-transform:uppercase;letter-spacing:0.12em;color:#c9c2b2;}
+.grand-total-box .value{font-family:var(--font-jetbrains-mono),monospace;font-size:34px;font-weight:700;}
+.grand-total-box .persqft{font-size:12.5px;color:#c9c2b2;margin-top:6px;}
+
+h3.subhead{
+  font-family:var(--font-fraunces),serif;font-weight:600;font-size:16px;margin:28px 0 10px 0;
+  display:flex;align-items:center;gap:10px;color:var(--ink);
+}
+h3.subhead::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--clay);flex-shrink:0;}
+textarea.field-input{
+  display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:#fffefb;
+  padding:16px 18px;font-size:14px;line-height:1.7;
+  box-shadow:0 1px 4px -2px rgba(28,35,33,0.06);
+}
+textarea.field-input:hover{border-color:#c9bfa5;}
+textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 4px var(--teal-soft);}
+
+.footer-note{text-align:center;font-size:11.5px;color:var(--muted);padding:44px 0 4px 0;}
+
+/* ---------- SCREEN / PRINT VIEW SWITCH ----------
+   QuotationDoc (editable) is the .screen-only tree; QuotationPrintView
+   (plain text, rendered straight from state — see that component's header
+   comment) is the .print-only tree. Swapping trees instead of cloning DOM
+   avoids the textarea-height / frozen-width / zero-size-iframe bugs the
+   legacy vanilla-JS build had to patch around. */
+.print-only{display:none;}
+@media print{
+  body{background:white;}
+  .screen-only{display:none !important;}
+  .print-only{display:block !important;}
+  .page{max-width:none;padding:0;margin:0;}
+  .doc{box-shadow:none;border-radius:0;}
+  table.doc-table tr:hover td{background:transparent;}
+  .spec-row{border-bottom:1px solid var(--line);}
+  h3.subhead{page-break-after:avoid;}
+  table.doc-table, .spec-block{page-break-inside:avoid;}
+}
+
+/* Plain-text stand-ins for form controls in the print view, styled to match
+   .field-input / textarea.field-input visually without being form elements. */
+.static-value{
+  min-height:1em;font-size:14.5px;color:var(--ink);padding:4px 0;
+  font-family:var(--font-inter),sans-serif;white-space:pre-wrap;overflow-wrap:break-word;
+}
+.static-block{
+  border:1px solid var(--line);border-radius:10px;background:#fffefb;
+  padding:16px 18px;font-size:14px;line-height:1.7;
+}
