@@ -7,7 +7,6 @@ import QuotationPrintView from "@/components/QuotationPrintView";
 import { sampleState, sampleStateKiran, blankState } from "@/lib/sampleData";
 import { fmt, computeTotals } from "@/lib/totals";
 import { listQuotes, loadQuote, saveQuote, deleteQuote, QuoteListItem } from "@/lib/quotesRepo";
-import { isSupabaseConfigured } from "@/lib/supabase";
 import type { QuoteState } from "@/lib/types";
 
 export default function Home() {
@@ -17,7 +16,6 @@ export default function Home() {
   const [busy, setBusy] = useState(false);
 
   const refreshQuotes = async () => {
-    if (!isSupabaseConfigured) return;
     try {
       setQuotes(await listQuotes());
     } catch (e) {
@@ -27,13 +25,11 @@ export default function Home() {
 
   useEffect(() => {
     let cancelled = false;
-    if (isSupabaseConfigured) {
-      listQuotes()
-        .then((q) => {
-          if (!cancelled) setQuotes(q);
-        })
-        .catch((e) => console.error("Could not list saved quotes", e));
-    }
+    listQuotes()
+      .then((q) => {
+        if (!cancelled) setQuotes(q);
+      })
+      .catch((e) => console.error("Could not list saved quotes", e));
     return () => {
       cancelled = true;
     };
@@ -77,8 +73,9 @@ export default function Home() {
       await refreshQuotes();
       setSelectedName(name);
       alert(`Saved "${name}".`);
-    } catch {
-      alert("Could not save — check Supabase is configured (NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY).");
+    } catch (e) {
+      console.error("Save failed", e);
+      alert("Could not save this quote.");
     } finally {
       setBusy(false);
     }
