@@ -88,6 +88,11 @@ export default function QuotationDoc({ state, setState }: Props) {
             priority
           />
           <div className="subwordmark">{state.client.parentCo || ""}</div>
+          <input
+            className="field-input cover-intro"
+            value={state.companyIntro}
+            onChange={(e) => setState((s) => ({ ...s, companyIntro: e.target.value }))}
+          />
           <div className="brandbar">
             <span className="t"></span>
             <span className="c"></span>

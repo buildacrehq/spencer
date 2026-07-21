@@ -13,6 +13,7 @@ export function sampleState(): QuoteState {
       soilCarting:"Yes", startDate:"2026-08-01", quoteDate:"2026-07-15",
       issuedBy:"BuildAcre Construction Company", parentCo:"BlackFyre Infra Private Limited", validity:"2026-07-30"
     },
+    companyIntro:"100+ Projects Completed · 60+ Ongoing Projects",
     floors:[
       {id:uid(), floor:"Ground Floor", plan:"Parking + 2BHK (Kitchen + Hall + Pooja room + 2 Bedrooms with attached bathroom + Common washroom) + External stairs", purpose:"RENT", area:1200},
       {id:uid(), floor:"First Floor", plan:"3BHK (Kitchen + Dining + Pooja room + Hall + 2 Bedrooms with attached washrooms + 1 Bedroom + Common washroom) + External stairs", purpose:"OWN", area:1200},

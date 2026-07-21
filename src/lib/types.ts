@@ -53,6 +53,7 @@ export interface Terms {
 
 export interface QuoteState {
   client: ClientInfo;
+  companyIntro: string;
   floors: FloorRow[];
   baseRate: number;
   foundationScope: string;

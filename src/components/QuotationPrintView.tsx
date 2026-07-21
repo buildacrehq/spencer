@@ -53,6 +53,7 @@ export default function QuotationPrintView({ state }: Props) {
             style={{ maxWidth: 280, width: "100%", height: "auto", display: "block", margin: "0 auto" }}
           />
           <div className="subwordmark">{state.client.parentCo || ""}</div>
+          <div className="cover-intro">{state.companyIntro}</div>
           <div className="brandbar">
             <span className="t"></span>
             <span className="c"></span>

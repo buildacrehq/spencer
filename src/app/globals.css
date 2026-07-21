@@ -91,6 +91,14 @@ body{
 }
 .cover .wordmark{font-family:var(--font-fraunces),serif;font-size:44px;letter-spacing:0.05em;font-weight:600;margin:16px 0 4px 0;}
 .cover .subwordmark{font-size:12px;letter-spacing:0.16em;color:var(--muted);text-transform:uppercase;}
+.cover-intro{
+  margin:14px auto 0 auto;max-width:360px;text-align:center;font-size:13px;
+  color:var(--teal);font-weight:600;letter-spacing:0.01em;
+  border:none;background:transparent;
+}
+input.cover-intro{padding:2px 0;border-bottom:1px dashed transparent;}
+input.cover-intro:hover{border-bottom-color:var(--line);}
+input.cover-intro:focus{outline:none;border-bottom-color:var(--teal);}
 .brandbar{display:flex;height:6px;width:72px;margin:22px auto 0 auto;border-radius:3px;overflow:hidden;}
 .brandbar span{flex:1;}
 .brandbar .t{background:var(--teal);}
@@ -99,7 +107,7 @@ body{
 .doc-body{padding:48px 56px 48px 56px;}
 @media (max-width:640px){ .doc-body{padding:28px 22px 28px 22px;} .cover{padding:44px 20px 28px 20px;} .cover .wordmark{font-size:32px;} }
 
-h2.doctitle{font-family:var(--font-fraunces),serif;font-size:24px;margin:56px 0 8px 0;display:flex;align-items:center;gap:12px;padding-top:8px;border-top:1px solid var(--line);}
+h2.doctitle{font-family:var(--font-fraunces),serif;font-weight:600;font-size:24px;margin:56px 0 8px 0;display:flex;align-items:center;gap:12px;padding-top:8px;border-top:1px solid var(--line);}
 h2.doctitle:first-of-type{border-top:none;margin-top:8px;}
 h2.doctitle .num{
   font-family:var(--font-jetbrains-mono),monospace;font-size:12px;background:var(--ink);color:var(--paper);
@@ -228,7 +236,8 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
   .doc{box-shadow:none;border-radius:0;}
   table.doc-table tr:hover td{background:transparent;}
   .spec-row{border-bottom:1px solid var(--line);}
-  h3.subhead{page-break-after:avoid;}
+  h2.doctitle{page-break-after:avoid;break-after:avoid;}
+  h3.subhead{page-break-after:avoid;break-after:avoid;}
   /* Protect individual rows/heads from splitting mid-content, but let tall
      blocks/tables span multiple pages — avoiding a break on the whole
      .spec-block was pushing tall categories entirely to the next page,
