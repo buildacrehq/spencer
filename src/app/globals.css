@@ -6,16 +6,24 @@
    Only font-family names were swapped for next/font CSS variables.
 --------------------------------------------------------------- */
 
+/* --teal/--clay variable NAMES kept as-is (touched throughout this file
+   and every component) but their VALUES were updated 2026-07-20 to match
+   buildacre.in's actual brand palette, pulled from that site's Elementor
+   global color CSS variables (--e-global-color-primary/secondary/text):
+   primary #c88a3d (warm gold/bronze), a muted teal-blue #8fb6bd, and dark
+   #13262a. The original values here were a reconstruction from a PDF
+   letterhead image, not the real scraped site colors — see
+   legacy/buildacre-quotation-builder-HANDOFF.md §7 for that history. */
 :root{
   --ink:#1c2321;
   --paper:#faf6ef;
-  --teal:#0f766e;
-  --teal-soft:#e4f1ef;
-  --clay:#d9622b;
-  --clay-soft:#fbe9e0;
+  --teal:#c88a3d;
+  --teal-soft:#f6ead9;
+  --clay:#3d6b74;
+  --clay-soft:#e2eced;
   --sand:#efe9db;
   --line:#e1d9c8;
-  --muted:#7a7263;
+  --muted:#7a7a7a;
   --danger:#b3432c;
 }
 *{box-sizing:border-box;}
@@ -67,7 +75,7 @@ body{
   font-size:15px;
   font-weight:600;
   display:flex;align-items:center;gap:8px;
-  box-shadow:0 2px 10px rgba(15,118,110,0.4);
+  box-shadow:0 2px 10px rgba(200,138,61,0.4);
 }
 .total-pill .lbl{font-family:var(--font-inter),sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;opacity:0.85;}
 
@@ -85,8 +93,8 @@ body{
   text-align:center;
   padding:72px 40px 44px 40px;
   background:
-    radial-gradient(circle at 15% 20%, rgba(15,118,110,0.07), transparent 45%),
-    radial-gradient(circle at 85% 10%, rgba(217,98,43,0.07), transparent 45%);
+    radial-gradient(circle at 15% 20%, rgba(200,138,61,0.07), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(61,107,116,0.07), transparent 45%);
   border-bottom:1px solid var(--line);
 }
 .cover .wordmark{font-family:var(--font-fraunces),serif;font-size:44px;letter-spacing:0.05em;font-weight:600;margin:16px 0 4px 0;}
@@ -101,11 +109,17 @@ input.cover-intro:hover{border-bottom-color:var(--line);}
 input.cover-intro:focus{outline:none;border-bottom-color:var(--teal);}
 .cover-about{
   margin:10px auto 0 auto;max-width:460px;text-align:center;font-size:13px;line-height:1.6;
-  color:var(--muted);border:none;background:transparent;resize:vertical;
+  color:var(--muted);
 }
-textarea.cover-about{padding:2px 0;border-bottom:1px dashed transparent;font-family:var(--font-inter),sans-serif;}
-textarea.cover-about:hover{border-bottom-color:var(--line);}
-textarea.cover-about:focus{outline:none;border-bottom-color:var(--teal);}
+/* Two classes (.field-input.cover-about) so this beats the general
+   textarea.field-input boxed-textarea rule regardless of source order —
+   this cover blurb should look like inline text, not a bordered box. */
+textarea.field-input.cover-about{
+  display:inline-block;width:100%;border:none;box-shadow:none;background:transparent;
+  padding:2px 0;border-bottom:1px dashed transparent;font-family:var(--font-inter),sans-serif;
+}
+textarea.field-input.cover-about:hover{border-color:transparent;border-bottom-color:var(--line);}
+textarea.field-input.cover-about:focus{outline:none;box-shadow:none;border-bottom-color:var(--teal);}
 .brandbar{display:flex;height:6px;width:72px;margin:22px auto 0 auto;border-radius:3px;overflow:hidden;}
 .brandbar span{flex:1;}
 .brandbar .t{background:var(--teal);}
@@ -178,12 +192,12 @@ table.doc-table input.field-input, table.doc-table textarea.field-input{padding:
    PDF's saturated pastel-per-section look (see spencer_ui_redesign memory
    for why: full-block color reads as a busy Excel export, this is a
    restrained middle ground). */
-.spec-block:nth-of-type(6n+1){border-top-color:#0f766e;} .spec-block:nth-of-type(6n+1) .tag{background:#0f766e;}
-.spec-block:nth-of-type(6n+2){border-top-color:#d9622b;} .spec-block:nth-of-type(6n+2) .tag{background:#d9622b;}
-.spec-block:nth-of-type(6n+3){border-top-color:#3b6ea5;} .spec-block:nth-of-type(6n+3) .tag{background:#3b6ea5;}
-.spec-block:nth-of-type(6n+4){border-top-color:#8b5fa3;} .spec-block:nth-of-type(6n+4) .tag{background:#8b5fa3;}
-.spec-block:nth-of-type(6n+5){border-top-color:#4a8f5c;} .spec-block:nth-of-type(6n+5) .tag{background:#4a8f5c;}
-.spec-block:nth-of-type(6n+0){border-top-color:#b8863b;} .spec-block:nth-of-type(6n+0) .tag{background:#b8863b;}
+.spec-block:nth-of-type(6n+1){border-top-color:#c88a3d;} .spec-block:nth-of-type(6n+1) .tag{background:#c88a3d;}
+.spec-block:nth-of-type(6n+2){border-top-color:#3d6b74;} .spec-block:nth-of-type(6n+2) .tag{background:#3d6b74;}
+.spec-block:nth-of-type(6n+3){border-top-color:#8b5fa3;} .spec-block:nth-of-type(6n+3) .tag{background:#8b5fa3;}
+.spec-block:nth-of-type(6n+4){border-top-color:#4a8f5c;} .spec-block:nth-of-type(6n+4) .tag{background:#4a8f5c;}
+.spec-block:nth-of-type(6n+5){border-top-color:#925b1a;} .spec-block:nth-of-type(6n+5) .tag{background:#925b1a;}
+.spec-block:nth-of-type(6n+0){border-top-color:#54595f;} .spec-block:nth-of-type(6n+0) .tag{background:#54595f;}
 .cat-title-input{
   font-family:var(--font-fraunces),serif;font-weight:600;font-size:16px;border:none;background:transparent;
   flex:1;border-bottom:1px dashed transparent;padding:3px 0;
