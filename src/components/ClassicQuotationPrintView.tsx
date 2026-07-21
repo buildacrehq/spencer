@@ -6,6 +6,9 @@ import { computeTotals, fmt } from "@/lib/totals";
 import { categoryIcon } from "@/lib/categoryIcons";
 import { CLIENT_FIELDS } from "@/lib/useQuoteHandlers";
 import { ClassicNumberedList } from "@/components/NumberedList";
+import { ClassicClauseTable } from "@/components/ClauseTable";
+import { ClassicFoundationTable } from "@/components/FoundationTable";
+import { parseClauseList } from "@/lib/clauseList";
 
 // Print rendering strategy note (see legacy/buildacre-quotation-builder-HANDOFF.md §6
 // for the three bugs the original vanilla-JS DOM-cloning approach had to work around —
@@ -100,7 +103,7 @@ export default function ClassicQuotationPrintView({ state }: Props) {
           <h2 className="doctitle">
             <span className="num">03</span> Foundation Work Includes (Scope Assumptions)
           </h2>
-          <StaticBlock>{state.foundationScope}</StaticBlock>
+          <ClassicFoundationTable text={state.foundationScope} />
 
           <h2 className="doctitle">
             <span className="num">04</span> Specifications &amp; Materials
@@ -138,7 +141,7 @@ export default function ClassicQuotationPrintView({ state }: Props) {
             <strong>{fmt(totals.baseCost)}</strong>
           </div>
           <h3 className="subhead">What This Rate Includes</h3>
-          <StaticBlock>{state.costIncludes}</StaticBlock>
+          <ClassicNumberedList text={state.costIncludes} />
 
           <h2 className="doctitle">
             <span className="num">06</span> Client Requirement Cost Break-up
@@ -157,6 +160,19 @@ export default function ClassicQuotationPrintView({ state }: Props) {
                   <td style={{ fontWeight: 700 }}>{r.item}</td>
                   <td>{r.desc}</td>
                   <td style={{ textAlign: "right", fontFamily: "var(--font-jetbrains-mono)" }}>{fmt(r.cost)}</td>
+                </tr>
+              ))}
+              {/* Items with no cost impact (parapet wall, compound wall, etc.)
+                  are edited separately as terms.included, but shown here as
+                  "Included" rows in the same table — matching the reference
+                  doc's single unified cost table instead of a disconnected
+                  bullet list under Terms (reported 2026-07-21). They don't
+                  affect totals.reqTotal, which only sums state.requirements. */}
+              {parseClauseList(state.terms.included).map((c, i) => (
+                <tr key={`inc-${i}`}>
+                  <td style={{ fontWeight: 700 }}>{c.clause}</td>
+                  <td>{c.desc}</td>
+                  <td style={{ textAlign: "right", fontStyle: "italic", color: "var(--muted)" }}>Included</td>
                 </tr>
               ))}
               <tr className="total-row">
@@ -179,14 +195,11 @@ export default function ClassicQuotationPrintView({ state }: Props) {
             <span className="num">07</span> Terms, Scope &amp; Process
           </h2>
 
-          <h3 className="subhead">Included at No Extra Cost</h3>
-          <StaticBlock>{state.terms.included}</StaticBlock>
-
           <h3 className="subhead">Specification Freeze &amp; Variation Policy</h3>
-          <StaticBlock>{state.terms.freeze}</StaticBlock>
+          <ClassicClauseTable text={state.terms.freeze} />
 
           <h3 className="subhead">Conditional Cost Adjustments</h3>
-          <StaticBlock>{state.terms.adjust}</StaticBlock>
+          <ClassicClauseTable text={state.terms.adjust} />
 
           <h3 className="subhead">Execution Process</h3>
           <ClassicNumberedList text={state.terms.exec} />

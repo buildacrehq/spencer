@@ -21,6 +21,13 @@ export function ClassicNumberedList({ text }: Props) {
           <div>
             <div className="numlist-title">{item.title}</div>
             {item.desc && <div className="numlist-desc">{item.desc}</div>}
+            {item.subBullets.length > 0 && (
+              <ul className="numlist-sub">
+                {item.subBullets.map((b, j) => (
+                  <li key={j}>{b}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       ))}
@@ -38,6 +45,13 @@ export function ModernNumberedList({ text }: Props) {
           <div>
             <div className="mod-numlist-title">{item.title}</div>
             {item.desc && <div className="mod-numlist-desc">{item.desc}</div>}
+            {item.subBullets.length > 0 && (
+              <ul className="mod-numlist-sub">
+                {item.subBullets.map((b, j) => (
+                  <li key={j}>{b}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       ))}

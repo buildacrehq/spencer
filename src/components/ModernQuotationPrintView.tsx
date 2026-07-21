@@ -6,6 +6,9 @@ import { computeTotals, fmt } from "@/lib/totals";
 import { categoryIcon } from "@/lib/categoryIcons";
 import { CLIENT_FIELDS } from "@/lib/useQuoteHandlers";
 import { ModernNumberedList } from "@/components/NumberedList";
+import { ModernClauseTable } from "@/components/ClauseTable";
+import { ModernFoundationTable } from "@/components/FoundationTable";
+import { parseClauseList } from "@/lib/clauseList";
 
 interface Props {
   state: QuoteState;
@@ -104,7 +107,7 @@ export default function ModernQuotationPrintView({ state }: Props) {
               <span className="mod-num">03</span>
               <h2 className="mod-heading">Foundation Work Includes</h2>
             </div>
-            <StaticBlock>{state.foundationScope}</StaticBlock>
+            <ModernFoundationTable text={state.foundationScope} />
           </div>
 
           <div className="mod-section">
@@ -143,7 +146,7 @@ export default function ModernQuotationPrintView({ state }: Props) {
               <strong>{fmt(totals.baseCost)}</strong>
             </div>
             <p className="mod-hint" style={{ marginTop: 16 }}>What this rate includes</p>
-            <StaticBlock>{state.costIncludes}</StaticBlock>
+            <ModernNumberedList text={state.costIncludes} />
           </div>
 
           <div className="mod-section">
@@ -165,6 +168,16 @@ export default function ModernQuotationPrintView({ state }: Props) {
                     <td style={{ fontWeight: 600 }}>{r.item}</td>
                     <td>{r.desc}</td>
                     <td className="mod-num-cell">{fmt(r.cost)}</td>
+                  </tr>
+                ))}
+                {/* See the Classic template's identical comment: items with
+                    no cost impact are edited as terms.included but shown
+                    here as "Included" rows in the same table. */}
+                {parseClauseList(state.terms.included).map((c, i) => (
+                  <tr key={`inc-${i}`}>
+                    <td style={{ fontWeight: 600 }}>{c.clause}</td>
+                    <td>{c.desc}</td>
+                    <td className="mod-num-cell" style={{ fontStyle: "italic", color: "#a3a3a3" }}>Included</td>
                   </tr>
                 ))}
                 <tr className="mod-total-row">
@@ -189,12 +202,10 @@ export default function ModernQuotationPrintView({ state }: Props) {
               <span className="mod-num">07</span>
               <h2 className="mod-heading">Terms, Scope &amp; Process</h2>
             </div>
-            <p className="mod-hint">Included at No Extra Cost</p>
-            <StaticBlock>{state.terms.included}</StaticBlock>
-            <p className="mod-hint" style={{ marginTop: 20 }}>Specification Freeze &amp; Variation Policy</p>
-            <StaticBlock>{state.terms.freeze}</StaticBlock>
+            <p className="mod-hint">Specification Freeze &amp; Variation Policy</p>
+            <ModernClauseTable text={state.terms.freeze} />
             <p className="mod-hint" style={{ marginTop: 20 }}>Conditional Cost Adjustments</p>
-            <StaticBlock>{state.terms.adjust}</StaticBlock>
+            <ModernClauseTable text={state.terms.adjust} />
             <p className="mod-hint" style={{ marginTop: 20 }}>Execution Process</p>
             <ModernNumberedList text={state.terms.exec} />
             <p className="mod-hint" style={{ marginTop: 20 }}>Client Scope (Not Included)</p>

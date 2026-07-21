@@ -146,7 +146,8 @@ export default function ModernQuotationDoc({ state, setState }: Props) {
               <span className="mod-num">03</span>
               <h2 className="mod-heading">Foundation Work Includes</h2>
             </div>
-            <textarea className="mod-field mod-block-input" rows={6} value={state.foundationScope} onChange={(e) => setState((s) => ({ ...s, foundationScope: e.target.value }))} />
+            <p className="mod-hint">Start a line with &quot;## &quot; to open a new category — everything after it, up to the next &quot;## &quot;, is grouped under it.</p>
+            <textarea className="mod-field mod-block-input" rows={10} value={state.foundationScope} onChange={(e) => setState((s) => ({ ...s, foundationScope: e.target.value }))} />
           </div>
 
           <div className="mod-section">
@@ -188,8 +189,8 @@ export default function ModernQuotationDoc({ state, setState }: Props) {
               <span className="eq">=</span>
               <strong>{fmt(totals.baseCost)}</strong>
             </div>
-            <p className="mod-hint" style={{ marginTop: 16 }}>What this rate includes</p>
-            <textarea className="mod-field" rows={3} value={state.costIncludes} onChange={(e) => setState((s) => ({ ...s, costIncludes: e.target.value }))} />
+            <p className="mod-hint" style={{ marginTop: 16 }}>What this rate includes — one service per line, as &quot;Title — description&quot;</p>
+            <textarea className="mod-field" rows={7} value={state.costIncludes} onChange={(e) => setState((s) => ({ ...s, costIncludes: e.target.value }))} />
           </div>
 
           <div className="mod-section">
@@ -232,6 +233,9 @@ export default function ModernQuotationDoc({ state, setState }: Props) {
             </table>
             <button className="mod-add-btn" onClick={addReq}>+ Add line item</button>
 
+            <p className="mod-hint" style={{ marginTop: 20 }}>Included at No Extra Cost — one item per line, shown in the table above marked &quot;Included&quot;, doesn&apos;t affect the total</p>
+            <textarea className="mod-field" rows={6} value={state.terms.included} onChange={(e) => updateTerms("included", e.target.value)} />
+
             <div className="mod-grand-total">
               <div>
                 <div className="label">Total Project Cost</div>
@@ -257,11 +261,9 @@ export default function ModernQuotationDoc({ state, setState }: Props) {
               <span className="mod-num">07</span>
               <h2 className="mod-heading">Terms, Scope &amp; Process</h2>
             </div>
-            <p className="mod-hint">Included at No Extra Cost</p>
-            <textarea className="mod-field" rows={4} value={state.terms.included} onChange={(e) => updateTerms("included", e.target.value)} />
-            <p className="mod-hint" style={{ marginTop: 20 }}>Specification Freeze &amp; Variation Policy</p>
+            <p className="mod-hint">Specification Freeze &amp; Variation Policy — one clause per line, as &quot;• Clause — Description&quot;</p>
             <textarea className="mod-field" rows={5} value={state.terms.freeze} onChange={(e) => updateTerms("freeze", e.target.value)} />
-            <p className="mod-hint" style={{ marginTop: 20 }}>Conditional Cost Adjustments</p>
+            <p className="mod-hint" style={{ marginTop: 20 }}>Conditional Cost Adjustments — one clause per line, as &quot;• Clause — Description&quot;</p>
             <textarea className="mod-field" rows={5} value={state.terms.adjust} onChange={(e) => updateTerms("adjust", e.target.value)} />
             <p className="mod-hint" style={{ marginTop: 20 }}>Execution Process</p>
             <textarea className="mod-field" rows={6} value={state.terms.exec} onChange={(e) => updateTerms("exec", e.target.value)} />
@@ -274,7 +276,8 @@ export default function ModernQuotationDoc({ state, setState }: Props) {
               <span className="mod-num">08</span>
               <h2 className="mod-heading">Design &amp; Execution Workflow</h2>
             </div>
-            <textarea className="mod-field" rows={10} value={state.workflow} onChange={(e) => setState((s) => ({ ...s, workflow: e.target.value }))} />
+            <p className="mod-hint">Each step as &quot;N. Title — description&quot;. Lines starting with &quot;- &quot; right after a step become sub-points under it.</p>
+            <textarea className="mod-field" rows={16} value={state.workflow} onChange={(e) => setState((s) => ({ ...s, workflow: e.target.value }))} />
           </div>
 
           <div className="mod-footer">

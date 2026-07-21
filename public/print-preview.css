@@ -305,6 +305,7 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
      occurrence of the same underlying page-break class of bug as the
      .spec-block fix above). Move the whole box to the next page instead. */
   .static-block{page-break-inside:avoid;break-inside:avoid;}
+  .foundation-group{page-break-inside:avoid;break-inside:avoid;}
 }
 
 /* Plain-text stand-ins for form controls in the print view, styled to match
@@ -333,6 +334,19 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
 }
 .numlist-title{font-weight:700;color:var(--ink);font-size:14px;}
 .numlist-desc{color:var(--muted);margin-top:3px;font-size:13.5px;line-height:1.6;}
+.numlist-sub{margin:6px 0 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px;}
+.numlist-sub li{font-size:13px;color:var(--ink);line-height:1.5;}
+
+/* Foundation Work Includes — Category/Item groups instead of one flat
+   bullet list (reference doc added 2026-07-21). See
+   src/lib/foundationScope.ts for the "## Category" text parser. */
+.foundation-groups{display:flex;flex-direction:column;gap:18px;}
+.foundation-cat{
+  font-family:var(--font-fraunces),serif;font-weight:600;font-size:14px;color:var(--clay);
+  text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;
+}
+.foundation-items{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px;}
+.foundation-items li{font-size:14px;color:var(--ink);line-height:1.5;}
 
 /* =================================================================
    MODERN + MINIMALIST TEMPLATE
@@ -413,7 +427,19 @@ textarea.mod-field{resize:vertical;line-height:1.6;}
 .mod-numlist-num{flex-shrink:0;font-family:var(--font-jetbrains-mono),monospace;font-size:12px;color:#b3763a;padding-top:2px;min-width:18px;}
 .mod-numlist-title{font-weight:700;font-size:13.5px;}
 .mod-numlist-desc{color:#8a8a8a;font-size:13px;margin-top:3px;line-height:1.6;}
+.mod-numlist-sub{margin:6px 0 0 0;padding-left:16px;display:flex;flex-direction:column;gap:4px;}
+.mod-numlist-sub li{font-size:12.5px;color:#4a4a4a;line-height:1.5;}
 .mod-footer{text-align:center;font-size:11px;color:#b3b3b3;padding:48px 0 4px 0;}
+
+/* Foundation Work Includes — Category/Item groups, same rationale as the
+   Classic .foundation-groups rule above. */
+.mod-foundation-groups{display:flex;flex-direction:column;gap:18px;}
+.mod-foundation-cat{
+  font-family:var(--font-inter),sans-serif;font-weight:700;font-size:12.5px;color:#b3763a;
+  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;
+}
+.mod-foundation-items{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;}
+.mod-foundation-items li{font-size:14px;color:#4a4a4a;line-height:1.5;}
 
 @media print{
   .mod-doc{box-shadow:none;border-radius:0;}
@@ -424,6 +450,7 @@ textarea.mod-field{resize:vertical;line-height:1.6;}
   .mod-spec-row, .mod-table tr, .mod-numlist-item{page-break-inside:avoid;break-inside:avoid;}
   .mod-spec-group-head{page-break-after:avoid;break-after:avoid;}
   .mod-block{page-break-inside:avoid;break-inside:avoid;}
+  .mod-foundation-group{page-break-inside:avoid;break-inside:avoid;}
 }
 
 /* ---------- LIVE PAGE PREVIEW (Paged.js) ---------- */

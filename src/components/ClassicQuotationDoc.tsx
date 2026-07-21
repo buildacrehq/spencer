@@ -150,9 +150,10 @@ export default function ClassicQuotationDoc({ state, setState }: Props) {
           <h2 className="doctitle">
             <span className="num">03</span> Foundation Work Includes (Scope Assumptions)
           </h2>
+          <p className="section-hint">Start a line with &quot;## &quot; to open a new category — everything after it, up to the next &quot;## &quot;, is grouped under it.</p>
           <textarea
             className="field-input"
-            rows={6}
+            rows={10}
             value={state.foundationScope}
             onChange={(e) => setState((s) => ({ ...s, foundationScope: e.target.value }))}
           />
@@ -225,9 +226,10 @@ export default function ClassicQuotationDoc({ state, setState }: Props) {
             <strong>{fmt(totals.baseCost)}</strong>
           </div>
           <h3 className="subhead">What This Rate Includes</h3>
+          <p className="section-hint">One service per line, as &quot;Title — description&quot;.</p>
           <textarea
             className="field-input"
-            rows={3}
+            rows={7}
             value={state.costIncludes}
             onChange={(e) => setState((s) => ({ ...s, costIncludes: e.target.value }))}
           />
@@ -281,6 +283,10 @@ export default function ClassicQuotationDoc({ state, setState }: Props) {
             + Add line item
           </button>
 
+          <h3 className="subhead">Included at No Extra Cost</h3>
+          <p className="section-hint">One item per line. Shown in the table above as extra rows marked &quot;Included&quot; — doesn&apos;t affect the total.</p>
+          <textarea className="field-input" rows={6} value={state.terms.included} onChange={(e) => updateTerms("included", e.target.value)} />
+
           <div className="grand-total-box">
             <div>
               <div className="label">Total Project Cost</div>
@@ -304,13 +310,12 @@ export default function ClassicQuotationDoc({ state, setState }: Props) {
             <span className="num">07</span> Terms, Scope &amp; Process
           </h2>
 
-          <h3 className="subhead">Included at No Extra Cost</h3>
-          <textarea className="field-input" rows={4} value={state.terms.included} onChange={(e) => updateTerms("included", e.target.value)} />
-
           <h3 className="subhead">Specification Freeze &amp; Variation Policy</h3>
+          <p className="section-hint">One clause per line, as &quot;• Clause — Description&quot;.</p>
           <textarea className="field-input" rows={5} value={state.terms.freeze} onChange={(e) => updateTerms("freeze", e.target.value)} />
 
           <h3 className="subhead">Conditional Cost Adjustments</h3>
+          <p className="section-hint">One clause per line, as &quot;• Clause — Description&quot;.</p>
           <textarea className="field-input" rows={5} value={state.terms.adjust} onChange={(e) => updateTerms("adjust", e.target.value)} />
 
           <h3 className="subhead">Execution Process</h3>
@@ -322,9 +327,12 @@ export default function ClassicQuotationDoc({ state, setState }: Props) {
           <h2 className="doctitle">
             <span className="num">08</span> Design &amp; Execution Workflow (Post-Advance Payment)
           </h2>
+          <p className="section-hint">
+            Each step as &quot;N. Title — description&quot;. Lines starting with &quot;- &quot; right after a step become sub-points under it.
+          </p>
           <textarea
             className="field-input"
-            rows={10}
+            rows={16}
             value={state.workflow}
             onChange={(e) => setState((s) => ({ ...s, workflow: e.target.value }))}
           />
