@@ -1,4 +1,22 @@
-@import "tailwindcss";
+/* MAINTENANCE NOTE: this is a manually-synced copy of src/app/globals.css
+   minus (a) its "@import "tailwindcss";" line and (b) any :nth-of-type(6n+N)
+   rules — served as a plain static file for Paged.js's live Page Preview
+   (src/components/PagePreviewModal.tsx), NOT the live page's own compiled
+   stylesheets. Paged.js's bundled CSS parser throws ("item doesn't belong
+   to list") specifically on the `An+B` nth-of-type microsyntax used by the
+   spec-block accent-color-cycling rules (isolated by bisection
+   2026-07-21 — an earlier guess that Tailwind's generated CSS was the
+   cause was wrong; a trivial stylesheet with just those nth-of-type rules
+   reproduces the crash on its own). Net effect: the live preview shows one
+   accent color per spec category instead of the cycling palette — cosmetic
+   only. The real PDF export is unaffected (rendered by the actual browser
+   engine, not Paged.js, so nth-of-type works normally there).
+
+   When you edit globals.css, copy the change here too, or Page Preview
+   will drift from the real print/export output. Regenerate with:
+   tail -n +2 src/app/globals.css | sed '/nth-of-type(6n/d' > public/print-preview.css
+   (run from the repo root). */
+
 
 /* ---------------------------------------------------------------
    Ported verbatim (selectors/values unchanged) from
@@ -192,12 +210,6 @@ table.doc-table input.field-input, table.doc-table textarea.field-input{padding:
    PDF's saturated pastel-per-section look (see spencer_ui_redesign memory
    for why: full-block color reads as a busy Excel export, this is a
    restrained middle ground). */
-.spec-block:nth-of-type(6n+1){border-top-color:#c88a3d;} .spec-block:nth-of-type(6n+1) .tag{background:#c88a3d;}
-.spec-block:nth-of-type(6n+2){border-top-color:#3d6b74;} .spec-block:nth-of-type(6n+2) .tag{background:#3d6b74;}
-.spec-block:nth-of-type(6n+3){border-top-color:#8b5fa3;} .spec-block:nth-of-type(6n+3) .tag{background:#8b5fa3;}
-.spec-block:nth-of-type(6n+4){border-top-color:#4a8f5c;} .spec-block:nth-of-type(6n+4) .tag{background:#4a8f5c;}
-.spec-block:nth-of-type(6n+5){border-top-color:#925b1a;} .spec-block:nth-of-type(6n+5) .tag{background:#925b1a;}
-.spec-block:nth-of-type(6n+0){border-top-color:#54595f;} .spec-block:nth-of-type(6n+0) .tag{background:#54595f;}
 .cat-title-input{
   font-family:var(--font-fraunces),serif;font-weight:600;font-size:16px;border:none;background:transparent;
   flex:1;border-bottom:1px dashed transparent;padding:3px 0;

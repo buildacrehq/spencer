@@ -16,6 +16,7 @@ interface Props {
   onNewBlank: () => void;
   onSave: () => void;
   onPrint: () => void;
+  onPreviewPages: () => void;
   onLogout: () => void;
   pillTotal: string;
   busy: boolean;
@@ -35,6 +36,7 @@ export default function Toolbar({
   onNewBlank,
   onSave,
   onPrint,
+  onPreviewPages,
   onLogout,
   pillTotal,
   busy,
@@ -79,6 +81,9 @@ export default function Toolbar({
       </select>
       <button className="tbtn tbtn-teal" onClick={onSave} disabled={busy}>
         Save
+      </button>
+      <button className="tbtn tbtn-ghost" onClick={onPreviewPages} disabled={busy}>
+        Preview Pages
       </button>
       <button className="tbtn tbtn-clay" onClick={onPrint} disabled={busy}>
         Export / Print PDF

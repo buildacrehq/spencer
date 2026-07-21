@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored third-party build artifact (Paged.js UMD bundle), not our
+    // source — see PagePreviewModal.tsx's header comment for why it's
+    // loaded as a plain <script> tag instead of an npm import.
+    "public/vendor/**",
   ]),
 ]);
 

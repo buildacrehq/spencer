@@ -61,6 +61,15 @@ To add another template: create `<Name>QuotationDoc.tsx` / `<Name>QuotationPrint
 
 **Print pagination rule that applies to every template:** each numbered section (01-08) forces a new page (`page-break-before:always` on the section heading) rather than flowing continuously from the previous section — see the print-media comment above each template's heading rule in `globals.css`.
 
+## Live Page Preview
+
+Browsers don't paginate on-screen HTML live — `@media print` / page-break CSS only takes effect during an actual print/PDF action, so pagination bugs were only ever discoverable by exporting and looking. The **Preview Pages** toolbar button (`src/components/PagePreviewModal.tsx`) fixes that: it renders the document as real, on-screen A4 page boxes using [Paged.js](https://pagedjs.org/), so you can see exactly what lands on which page without exporting anything. Not literally live-per-keystroke — it's a real layout pass over the whole document, so it renders on demand (open/Refresh), not on every edit.
+
+Two non-obvious things about this integration, both documented at length in the relevant files — read them before touching this feature:
+
+- Paged.js is loaded as a plain `<script>` tag from `public/vendor/paged.min.js` (global `window.PagedModule`), not via `import("pagedjs")` — the npm package's module entry pulls in an old ES5 polyfill chain that crashes under Turbopack's bundling.
+- It's fed `public/print-preview.css`, a manually-synced copy of `globals.css` with `:nth-of-type(6n+N)` rules stripped — Paged.js's bundled CSS parser can't handle that selector microsyntax and throws. **If you edit `globals.css`, regenerate this file** (see the command in its own header comment) or the live preview will silently drift from the real export.
+
 ## Deploying
 
 Standard Vercel deployment — connect this repo and set these env vars in the

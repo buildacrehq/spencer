@@ -7,6 +7,7 @@ import ClassicQuotationDoc from "@/components/ClassicQuotationDoc";
 import ClassicQuotationPrintView from "@/components/ClassicQuotationPrintView";
 import ModernQuotationDoc from "@/components/ModernQuotationDoc";
 import ModernQuotationPrintView from "@/components/ModernQuotationPrintView";
+import PagePreviewModal from "@/components/PagePreviewModal";
 import { sampleState, sampleStateKiran, sampleStateRavi, blankState } from "@/lib/sampleData";
 import { fmt, computeTotals } from "@/lib/totals";
 import { listQuotes, loadQuote, saveQuote, deleteQuote, QuoteListItem } from "@/lib/quotesRepo";
@@ -18,6 +19,7 @@ export default function Home() {
   const [quotes, setQuotes] = useState<QuoteListItem[]>([]);
   const [selectedName, setSelectedName] = useState("");
   const [busy, setBusy] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const refreshQuotes = async () => {
     try {
@@ -125,6 +127,7 @@ export default function Home() {
           onNewBlank={handleNewBlank}
           onSave={handleSave}
           onPrint={handlePrint}
+          onPreviewPages={() => setPreviewOpen(true)}
           onLogout={handleLogout}
           pillTotal={pillTotal}
           busy={busy}
@@ -134,6 +137,7 @@ export default function Home() {
         <Doc state={state} setState={setState} />
       </div>
       <PrintView state={state} />
+      <PagePreviewModal open={previewOpen} onClose={() => setPreviewOpen(false)} sourceSelector=".print-only" />
     </>
   );
 }
