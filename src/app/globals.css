@@ -243,6 +243,16 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
   .doc{box-shadow:none;border-radius:0;}
   table.doc-table tr:hover td{background:transparent;}
   .spec-row{border-bottom:1px solid var(--line);}
+  /* .spec-block is a bordered/rounded "card" on screen, which looks fine
+     since it never has to split. In print it can span a page break (see
+     the comment below on row-level-only avoid), and a bordered rounded box
+     that splits renders its border+corners on BOTH fragments — looking
+     like two separate torn cards with a gap between them (reported
+     2026-07-20, third occurrence of this bug class). Fix at the root
+     instead of fighting page-break heuristics: drop the card chrome
+     entirely in print and keep only the colored top accent + spacing, so
+     there's nothing left to look broken no matter where it splits. */
+  .spec-block{border:none;border-top:3px solid var(--clay);border-radius:0;box-shadow:none;background:transparent;padding:14px 0 6px 0;margin:0 0 28px 0;}
   h2.doctitle{page-break-after:avoid;break-after:avoid;}
   h3.subhead{page-break-after:avoid;break-after:avoid;}
   /* Protect individual rows/heads from splitting mid-content, but let tall
