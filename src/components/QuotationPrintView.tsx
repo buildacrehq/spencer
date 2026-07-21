@@ -54,6 +54,7 @@ export default function QuotationPrintView({ state }: Props) {
           />
           <div className="subwordmark">{state.client.parentCo || ""}</div>
           <div className="cover-intro">{state.companyIntro}</div>
+          <div className="cover-about">{state.companyAbout}</div>
           <div className="brandbar">
             <span className="t"></span>
             <span className="c"></span>

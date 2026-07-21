@@ -99,6 +99,13 @@ body{
 input.cover-intro{padding:2px 0;border-bottom:1px dashed transparent;}
 input.cover-intro:hover{border-bottom-color:var(--line);}
 input.cover-intro:focus{outline:none;border-bottom-color:var(--teal);}
+.cover-about{
+  margin:10px auto 0 auto;max-width:460px;text-align:center;font-size:13px;line-height:1.6;
+  color:var(--muted);border:none;background:transparent;resize:vertical;
+}
+textarea.cover-about{padding:2px 0;border-bottom:1px dashed transparent;font-family:var(--font-inter),sans-serif;}
+textarea.cover-about:hover{border-bottom-color:var(--line);}
+textarea.cover-about:focus{outline:none;border-bottom-color:var(--teal);}
 .brandbar{display:flex;height:6px;width:72px;margin:22px auto 0 auto;border-radius:3px;overflow:hidden;}
 .brandbar span{flex:1;}
 .brandbar .t{background:var(--teal);}
@@ -244,6 +251,13 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
      leaving large empty gaps on the page before (reported 2026-07-20). */
   .spec-row, table.doc-table tr{page-break-inside:avoid;break-inside:avoid;}
   .spec-head{page-break-after:avoid;break-after:avoid;}
+  /* .static-block (Foundation Work Includes, terms paragraphs, workflow —
+     any bordered/rounded read-only text box) split mid-content across a
+     page break renders as two separate boxes with a border-radius seam and
+     wasted empty space in the first fragment (reported 2026-07-20, second
+     occurrence of the same underlying page-break class of bug as the
+     .spec-block fix above). Move the whole box to the next page instead. */
+  .static-block{page-break-inside:avoid;break-inside:avoid;}
 }
 
 /* Plain-text stand-ins for form controls in the print view, styled to match

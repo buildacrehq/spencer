@@ -14,6 +14,7 @@ export function sampleState(): QuoteState {
       issuedBy:"BuildAcre Construction Company", parentCo:"BlackFyre Infra Private Limited", validity:"2026-07-30"
     },
     companyIntro:"100+ Projects Completed · 60+ Ongoing Projects",
+    companyAbout:"Buildacre is a full-service turnkey construction company based in Bengaluru, delivering architecturally designed homes with transparent pricing, dedicated project management, and quality material sourcing from foundation to handover.",
     floors:[
       {id:uid(), floor:"Ground Floor", plan:"Parking + 2BHK (Kitchen + Hall + Pooja room + 2 Bedrooms with attached bathroom + Common washroom) + External stairs", purpose:"RENT", area:1200},
       {id:uid(), floor:"First Floor", plan:"3BHK (Kitchen + Dining + Pooja room + Hall + 2 Bedrooms with attached washrooms + 1 Bedroom + Common washroom) + External stairs", purpose:"OWN", area:1200},

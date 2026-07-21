@@ -93,6 +93,12 @@ export default function QuotationDoc({ state, setState }: Props) {
             value={state.companyIntro}
             onChange={(e) => setState((s) => ({ ...s, companyIntro: e.target.value }))}
           />
+          <textarea
+            className="field-input cover-about"
+            rows={2}
+            value={state.companyAbout}
+            onChange={(e) => setState((s) => ({ ...s, companyAbout: e.target.value }))}
+          />
           <div className="brandbar">
             <span className="t"></span>
             <span className="c"></span>
