@@ -95,13 +95,17 @@ export default function QuotationPrintView({ state }: Props) {
                   <td style={{ textAlign: "right", fontFamily: "var(--font-jetbrains-mono)" }}>{f.area}</td>
                 </tr>
               ))}
-            </tbody>
-            <tfoot>
+              {/* A real <tfoot> repeats on every printed page a table spans
+                  (like <thead> does) — for a grand-total row that should
+                  only ever appear once, at the true end, that meant it was
+                  rendering right after the first page's worth of rows
+                  instead of after all of them (reported 2026-07-20). Using
+                  a plain trailing <tbody> row instead fixes this. */}
               <tr className="total-row">
                 <td colSpan={3}>Total Slab Area</td>
                 <td>{totals.totalArea}</td>
               </tr>
-            </tfoot>
+            </tbody>
           </table>
 
           <h2 className="doctitle">
@@ -166,13 +170,11 @@ export default function QuotationPrintView({ state }: Props) {
                   <td style={{ textAlign: "right", fontFamily: "var(--font-jetbrains-mono)" }}>{fmt(r.cost)}</td>
                 </tr>
               ))}
-            </tbody>
-            <tfoot>
               <tr className="total-row">
                 <td colSpan={2}>Additional Requirements Total</td>
                 <td>{fmt(totals.reqTotal)}</td>
               </tr>
-            </tfoot>
+            </tbody>
           </table>
 
           <div className="grand-total-box">
