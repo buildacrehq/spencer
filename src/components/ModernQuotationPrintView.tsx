@@ -5,6 +5,7 @@ import type { QuoteState } from "@/lib/types";
 import { computeTotals, fmt } from "@/lib/totals";
 import { categoryIcon } from "@/lib/categoryIcons";
 import { CLIENT_FIELDS } from "@/lib/useQuoteHandlers";
+import { ModernNumberedList } from "@/components/NumberedList";
 
 interface Props {
   state: QuoteState;
@@ -195,7 +196,7 @@ export default function ModernQuotationPrintView({ state }: Props) {
             <p className="mod-hint" style={{ marginTop: 20 }}>Conditional Cost Adjustments</p>
             <StaticBlock>{state.terms.adjust}</StaticBlock>
             <p className="mod-hint" style={{ marginTop: 20 }}>Execution Process</p>
-            <StaticBlock>{state.terms.exec}</StaticBlock>
+            <ModernNumberedList text={state.terms.exec} />
             <p className="mod-hint" style={{ marginTop: 20 }}>Client Scope (Not Included)</p>
             <StaticBlock>{state.terms.scope}</StaticBlock>
           </div>
@@ -205,7 +206,7 @@ export default function ModernQuotationPrintView({ state }: Props) {
               <span className="mod-num">08</span>
               <h2 className="mod-heading">Design &amp; Execution Workflow</h2>
             </div>
-            <StaticBlock>{state.workflow}</StaticBlock>
+            <ModernNumberedList text={state.workflow} />
           </div>
 
           <div className="mod-footer">

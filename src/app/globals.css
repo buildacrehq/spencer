@@ -274,17 +274,20 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
      entirely in print and keep only the colored top accent + spacing, so
      there's nothing left to look broken no matter where it splits. */
   .spec-block{border:none;border-top:3px solid var(--clay);border-radius:0;box-shadow:none;background:transparent;padding:14px 0 6px 0;margin:0 0 28px 0;}
-  /* Each numbered section (01-08) starts on its own fresh page, including
-     section 01 (which gets its own page separate from the cover) —
-     requested 2026-07-20: sections must not continue on whatever page
-     came before them. */
-  h2.doctitle{page-break-after:avoid;break-after:avoid;page-break-before:always;break-before:page;}
+  /* Each numbered section (02-08) starts on its own fresh page rather than
+     continuing on whatever page came before it — requested 2026-07-20.
+     Section 01 is deliberately excluded: it's short (just the client kv
+     grid) and naturally fits on the same page as the cover, which is also
+     short — forcing a break there left the entire rest of page 1 empty
+     (reported 2026-07-21). */
+  h2.doctitle{page-break-after:avoid;break-after:avoid;}
+  h2.doctitle:not(:first-of-type){page-break-before:always;break-before:page;}
   h3.subhead{page-break-after:avoid;break-after:avoid;}
   /* Protect individual rows/heads from splitting mid-content, but let tall
      blocks/tables span multiple pages — avoiding a break on the whole
      .spec-block was pushing tall categories entirely to the next page,
      leaving large empty gaps on the page before (reported 2026-07-20). */
-  .spec-row, table.doc-table tr{page-break-inside:avoid;break-inside:avoid;}
+  .spec-row, table.doc-table tr, .numlist-item{page-break-inside:avoid;break-inside:avoid;}
   .spec-head{page-break-after:avoid;break-after:avoid;}
   /* .static-block (Foundation Work Includes, terms paragraphs, workflow —
      any bordered/rounded read-only text box) split mid-content across a
@@ -305,6 +308,22 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
   border:1px solid var(--line);border-radius:10px;background:#fffefb;
   padding:16px 18px;font-size:14px;line-height:1.7;
 }
+
+/* Numbered-list rendering (workflow, terms.exec) — real rows with a
+   number badge + bold title instead of one dense wrapped paragraph of
+   "1. ... 2. ... 3. ..." text, which read as a textbook page rather than
+   a client-facing document (reported 2026-07-21). See
+   src/lib/numberedList.ts for the "N. Title — description" text parser
+   this renders; the underlying data is still one plain editable string. */
+.numlist{display:flex;flex-direction:column;gap:16px;}
+.numlist-item{display:flex;gap:14px;align-items:flex-start;}
+.numlist-num{
+  flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-jetbrains-mono),monospace;
+  font-size:11.5px;font-weight:700;
+}
+.numlist-title{font-weight:700;color:var(--ink);font-size:14px;}
+.numlist-desc{color:var(--muted);margin-top:3px;font-size:13.5px;line-height:1.6;}
 
 /* =================================================================
    MODERN + MINIMALIST TEMPLATE
@@ -379,12 +398,21 @@ textarea.mod-field{resize:vertical;line-height:1.6;}
 .mod-grand-total .value{font-family:var(--font-jetbrains-mono),monospace;font-size:36px;font-weight:700;color:var(--ink);}
 
 .mod-block{border:none;border-left:2px solid #ececec;padding:2px 0 2px 18px;font-size:14px;line-height:1.8;color:#4a4a4a;white-space:pre-wrap;}
+.mod-numlist{display:flex;flex-direction:column;}
+.mod-numlist-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #ececec;}
+.mod-numlist-item:last-of-type{border-bottom:none;}
+.mod-numlist-num{flex-shrink:0;font-family:var(--font-jetbrains-mono),monospace;font-size:12px;color:#b3763a;padding-top:2px;min-width:18px;}
+.mod-numlist-title{font-weight:700;font-size:13.5px;}
+.mod-numlist-desc{color:#8a8a8a;font-size:13px;margin-top:3px;line-height:1.6;}
 .mod-footer{text-align:center;font-size:11px;color:#b3b3b3;padding:48px 0 4px 0;}
 
 @media print{
   .mod-doc{box-shadow:none;border-radius:0;}
-  .mod-heading{page-break-after:avoid;break-after:avoid;page-break-before:always;break-before:page;}
-  .mod-spec-row, .mod-table tr{page-break-inside:avoid;break-inside:avoid;}
+  /* Same exclusion as Classic's h2.doctitle rule above — section 01 shares
+     the cover's page, sections 02-08 each force a fresh page. */
+  .mod-heading{page-break-after:avoid;break-after:avoid;}
+  .mod-section:not(:first-of-type) .mod-heading{page-break-before:always;break-before:page;}
+  .mod-spec-row, .mod-table tr, .mod-numlist-item{page-break-inside:avoid;break-inside:avoid;}
   .mod-spec-group-head{page-break-after:avoid;break-after:avoid;}
   .mod-block{page-break-inside:avoid;break-inside:avoid;}
 }

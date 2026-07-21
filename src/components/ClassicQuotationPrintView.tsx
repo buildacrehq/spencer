@@ -5,6 +5,7 @@ import type { QuoteState } from "@/lib/types";
 import { computeTotals, fmt } from "@/lib/totals";
 import { categoryIcon } from "@/lib/categoryIcons";
 import { CLIENT_FIELDS } from "@/lib/useQuoteHandlers";
+import { ClassicNumberedList } from "@/components/NumberedList";
 
 // Print rendering strategy note (see legacy/buildacre-quotation-builder-HANDOFF.md §6
 // for the three bugs the original vanilla-JS DOM-cloning approach had to work around —
@@ -188,7 +189,7 @@ export default function ClassicQuotationPrintView({ state }: Props) {
           <StaticBlock>{state.terms.adjust}</StaticBlock>
 
           <h3 className="subhead">Execution Process</h3>
-          <StaticBlock>{state.terms.exec}</StaticBlock>
+          <ClassicNumberedList text={state.terms.exec} />
 
           <h3 className="subhead">Client Scope (Not Included)</h3>
           <StaticBlock>{state.terms.scope}</StaticBlock>
@@ -196,7 +197,7 @@ export default function ClassicQuotationPrintView({ state }: Props) {
           <h2 className="doctitle">
             <span className="num">08</span> Design &amp; Execution Workflow (Post-Advance Payment)
           </h2>
-          <StaticBlock>{state.workflow}</StaticBlock>
+          <ClassicNumberedList text={state.workflow} />
 
           <div className="footer-note">
             Issued by {state.client.issuedBy || ""}
