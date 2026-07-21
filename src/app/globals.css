@@ -267,7 +267,11 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
      entirely in print and keep only the colored top accent + spacing, so
      there's nothing left to look broken no matter where it splits. */
   .spec-block{border:none;border-top:3px solid var(--clay);border-radius:0;box-shadow:none;background:transparent;padding:14px 0 6px 0;margin:0 0 28px 0;}
-  h2.doctitle{page-break-after:avoid;break-after:avoid;}
+  /* Each numbered section (01-08) starts on its own fresh page, including
+     section 01 (which gets its own page separate from the cover) —
+     requested 2026-07-20: sections must not continue on whatever page
+     came before them. */
+  h2.doctitle{page-break-after:avoid;break-after:avoid;page-break-before:always;break-before:page;}
   h3.subhead{page-break-after:avoid;break-after:avoid;}
   /* Protect individual rows/heads from splitting mid-content, but let tall
      blocks/tables span multiple pages — avoiding a break on the whole
@@ -293,4 +297,87 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
 .static-block{
   border:1px solid var(--line);border-radius:10px;background:#fffefb;
   padding:16px 18px;font-size:14px;line-height:1.7;
+}
+
+/* =================================================================
+   MODERN + MINIMALIST TEMPLATE
+   Deliberately different from the Classic template above: sans-serif
+   only (no Fraunces), flat sections instead of bordered/colored cards,
+   one restrained accent color, generous whitespace, right-aligned
+   monospace figures. Added 2026-07-20 as the first entry in a
+   multi-template system (see QuoteState.template).
+================================================================= */
+.mod-page{max-width:820px;margin:0 auto;padding:64px 28px 120px 28px;}
+.mod-doc{background:#ffffff;border-radius:4px;box-shadow:0 20px 50px -25px rgba(28,35,33,0.3);overflow:hidden;}
+.mod-cover{padding:64px 48px 40px 48px;border-bottom:1px solid #ececec;}
+.mod-cover-top{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.mod-wordmark{font-family:var(--font-inter),sans-serif;font-size:15px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;}
+.mod-cover-label{font-family:var(--font-jetbrains-mono),monospace;font-size:11px;letter-spacing:0.1em;color:#9a9a9a;text-transform:uppercase;}
+.mod-cover-title{font-family:var(--font-inter),sans-serif;font-size:42px;font-weight:700;letter-spacing:-0.02em;margin:28px 0 6px 0;line-height:1.1;}
+.mod-cover-sub{font-size:14px;color:#8a8a8a;margin-bottom:4px;}
+.mod-cover-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px;font-size:12.5px;color:#8a8a8a;}
+.mod-cover-meta strong{color:var(--ink);font-weight:600;}
+.mod-cover-about{margin-top:20px;font-size:13px;line-height:1.7;color:#6b6b6b;max-width:560px;border:none;background:transparent;resize:vertical;font-family:var(--font-inter),sans-serif;}
+
+.mod-body{padding:8px 48px 48px 48px;}
+.mod-section{margin:52px 0 0 0;}
+.mod-section:first-of-type{margin-top:8px;}
+.mod-heading-row{display:flex;align-items:baseline;gap:12px;margin-bottom:4px;}
+.mod-num{font-family:var(--font-jetbrains-mono),monospace;font-size:11px;color:#b3763a;letter-spacing:0.05em;}
+.mod-heading{font-family:var(--font-inter),sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.01em;margin:0;}
+.mod-hint{font-size:12.5px;color:#a3a3a3;margin:6px 0 20px 0;}
+
+.mod-field{
+  width:100%;border:none;border-bottom:1px solid transparent;background:transparent;
+  font-size:14px;color:var(--ink);padding:6px 0;font-family:var(--font-inter),sans-serif;
+}
+.mod-field:hover{border-bottom-color:#e2e2e2;}
+.mod-field:focus{outline:none;border-bottom-color:#b3763a;}
+textarea.mod-field{resize:vertical;line-height:1.6;}
+.mod-kv-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;}
+@media (max-width:640px){.mod-kv-grid{grid-template-columns:1fr;}}
+.mod-kv-field{padding:12px 0;border-bottom:1px solid #ececec;}
+.mod-kv-field label{display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#a3a3a3;margin-bottom:4px;}
+
+.mod-table{width:100%;border-collapse:collapse;margin:8px 0;}
+.mod-table th{
+  text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:#a3a3a3;
+  font-weight:600;padding:10px 12px;border-bottom:2px solid var(--ink);
+}
+.mod-table td{padding:14px 12px;border-bottom:1px solid #ececec;vertical-align:top;font-size:14px;}
+.mod-table tr.mod-total-row td{border-top:2px solid var(--ink);border-bottom:none;font-weight:700;font-family:var(--font-jetbrains-mono),monospace;font-size:13.5px;padding-top:16px;}
+.mod-num-cell{text-align:right;font-family:var(--font-jetbrains-mono),monospace;}
+.mod-del-btn{background:none;border:none;color:#c4c4c4;cursor:pointer;font-size:16px;padding:4px 6px;}
+.mod-del-btn:hover{color:var(--danger);}
+.mod-add-btn{
+  margin-top:10px;background:transparent;border:1px dashed #d9d9d9;color:#9a9a9a;
+  padding:8px 16px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;
+}
+.mod-add-btn:hover{border-color:#b3763a;color:#b3763a;}
+
+.mod-spec-group{margin:28px 0;}
+.mod-spec-group-head{display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:2px solid var(--ink);margin-bottom:4px;}
+.mod-cat-title{font-family:var(--font-inter),sans-serif;font-weight:700;font-size:14px;letter-spacing:0.02em;text-transform:uppercase;border:none;background:transparent;flex:1;}
+.mod-spec-row{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid #ececec;}
+.mod-spec-row:last-of-type{border-bottom:none;}
+.mod-spec-row input:first-child{flex:0 0 32%;font-weight:600;}
+.mod-spec-row input{flex:1;}
+
+.mod-cost-strip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:20px 0;font-size:14px;border-top:1px solid #ececec;border-bottom:1px solid #ececec;}
+.mod-cost-strip .eq{font-family:var(--font-jetbrains-mono),monospace;color:#b3763a;font-weight:700;}
+
+.mod-grand-total{display:flex;justify-content:space-between;align-items:flex-end;padding:28px 0;border-top:2px solid var(--ink);margin-top:12px;}
+.mod-grand-total .label{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#a3a3a3;}
+.mod-grand-total .persqft{font-size:12px;color:#a3a3a3;margin-top:4px;}
+.mod-grand-total .value{font-family:var(--font-jetbrains-mono),monospace;font-size:36px;font-weight:700;color:var(--ink);}
+
+.mod-block{border:none;border-left:2px solid #ececec;padding:2px 0 2px 18px;font-size:14px;line-height:1.8;color:#4a4a4a;white-space:pre-wrap;}
+.mod-footer{text-align:center;font-size:11px;color:#b3b3b3;padding:48px 0 4px 0;}
+
+@media print{
+  .mod-doc{box-shadow:none;border-radius:0;}
+  .mod-heading{page-break-after:avoid;break-after:avoid;page-break-before:always;break-before:page;}
+  .mod-spec-row, .mod-table tr{page-break-inside:avoid;break-inside:avoid;}
+  .mod-spec-group-head{page-break-after:avoid;break-after:avoid;}
+  .mod-block{page-break-inside:avoid;break-inside:avoid;}
 }

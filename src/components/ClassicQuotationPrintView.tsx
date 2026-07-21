@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { QuoteState } from "@/lib/types";
 import { computeTotals, fmt } from "@/lib/totals";
 import { categoryIcon } from "@/lib/categoryIcons";
+import { CLIENT_FIELDS } from "@/lib/useQuoteHandlers";
 
 // Print rendering strategy note (see legacy/buildacre-quotation-builder-HANDOFF.md §6
 // for the three bugs the original vanilla-JS DOM-cloning approach had to work around —
@@ -17,19 +18,6 @@ interface Props {
   state: QuoteState;
 }
 
-const CLIENT_FIELDS: [keyof QuoteState["client"], string][] = [
-  ["name", "Client Name"],
-  ["place", "Place"],
-  ["location", "Site Location"],
-  ["khatha", "Khatha Type"],
-  ["siteDim", "Site Dimension"],
-  ["roadFacing", "Road Facing"],
-  ["setback", "After Setback"],
-  ["soilCarting", "Soil Carting Away Space"],
-  ["startDate", "Starting Date"],
-  ["quoteDate", "Quotation Date"],
-];
-
 function StaticText({ children }: { children?: string }) {
   return <div className="static-value">{children || ""}</div>;
 }
@@ -38,7 +26,7 @@ function StaticBlock({ children }: { children?: string }) {
   return <div className="static-value static-block">{children || ""}</div>;
 }
 
-export default function QuotationPrintView({ state }: Props) {
+export default function ClassicQuotationPrintView({ state }: Props) {
   const totals = computeTotals(state);
 
   return (

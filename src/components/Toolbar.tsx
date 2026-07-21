@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import type { QuoteListItem } from "@/lib/quotesRepo";
+import type { TemplateId } from "@/lib/types";
 
 interface Props {
   quotes: QuoteListItem[];
@@ -18,6 +19,8 @@ interface Props {
   onLogout: () => void;
   pillTotal: string;
   busy: boolean;
+  template: TemplateId;
+  onTemplateChange: (template: TemplateId) => void;
 }
 
 export default function Toolbar({
@@ -35,6 +38,8 @@ export default function Toolbar({
   onLogout,
   pillTotal,
   busy,
+  template,
+  onTemplateChange,
 }: Props) {
   return (
     <div className="toolbar">
@@ -68,6 +73,10 @@ export default function Toolbar({
       <button className="tbtn tbtn-ghost" onClick={onNewBlank} disabled={busy}>
         New Blank
       </button>
+      <select value={template} onChange={(e) => onTemplateChange(e.target.value as TemplateId)} disabled={busy}>
+        <option value="classic">Template: Classic</option>
+        <option value="modern">Template: Modern</option>
+      </select>
       <button className="tbtn tbtn-teal" onClick={onSave} disabled={busy}>
         Save
       </button>

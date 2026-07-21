@@ -38,16 +38,28 @@ itself.
 
 ## Project structure
 
-- `src/lib/types.ts` — the `QuoteState` shape (client info, floors, specs, requirements, terms, workflow).
-- `src/lib/sampleData.ts` — the two reference quotes (Ranjith, Kiran) and a blank starter, ported verbatim from the legacy file.
+- `src/lib/types.ts` — the `QuoteState` shape (client info, floors, specs, requirements, terms, workflow, `template`).
+- `src/lib/sampleData.ts` — the three reference quotes (Ranjith, Kiran, Ravi Kumar — the last is the current main content/structure reference) and a blank starter.
 - `src/lib/totals.ts` — pure total/₹-per-sqft calculation.
+- `src/lib/useQuoteHandlers.ts` — the state-mutation handlers (add/remove/update floor, spec row, requirement, etc.) shared by every template's editable Doc component, so templates only differ in markup, not editing logic.
 - `src/lib/quotesRepo.ts` — save/open/delete, Supabase-backed with a localStorage fallback (see its header comment).
 - `src/lib/supabase.ts` — the Supabase client (null when unconfigured).
 - `src/lib/auth.ts` / `src/proxy.ts` / `src/app/login/` / `src/app/api/{login,logout}/` — the shared-password gate.
-- `src/components/QuotationDoc.tsx` — the editable document.
-- `src/components/QuotationPrintView.tsx` — read-only render of the same state, shown only under `@media print` (see its header comment for why this is a separate tree rather than DOM-cloning like the legacy version did).
-- `src/components/Toolbar.tsx` — the sticky top toolbar.
+- `src/components/Toolbar.tsx` — the sticky top toolbar, including the template switcher.
 - `legacy/` — the original single-file HTML prototype and its handoff doc, kept for reference.
+
+### Templates
+
+Each quote has a `template` field (`"classic" | "modern"`), saved as part of the quote data — reopening a saved quote restores whichever template it was saved with.
+
+- **Classic** (`ClassicQuotationDoc.tsx` / `ClassicQuotationPrintView.tsx`) — the original design: serif headings, bordered/colored spec-category cards, teal/gold accents.
+- **Modern** (`ModernQuotationDoc.tsx` / `ModernQuotationPrintView.tsx`) — sans-serif only, flat sections instead of cards, single restrained accent color, generous whitespace.
+
+Each template ships an editable Doc component (`.screen-only`) and a read-only PrintView component (`.print-only`, rendered straight from state — see `ClassicQuotationPrintView.tsx`'s header comment for why this is a separate tree rather than DOM-cloning like the legacy version did). `src/app/page.tsx` picks the pair based on `state.template`.
+
+To add another template: create `<Name>QuotationDoc.tsx` / `<Name>QuotationPrintView.tsx` using `useQuoteHandlers`, add its CSS (own class prefix, don't reuse another template's classes), add the option to `TemplateId` and the Toolbar's template `<select>`, and add the pair to the lookup in `page.tsx`.
+
+**Print pagination rule that applies to every template:** each numbered section (01-08) forces a new page (`page-break-before:always` on the section heading) rather than flowing continuously from the previous section — see the print-media comment above each template's heading rule in `globals.css`.
 
 ## Deploying
 

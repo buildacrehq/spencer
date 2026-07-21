@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Toolbar from "@/components/Toolbar";
-import QuotationDoc from "@/components/QuotationDoc";
-import QuotationPrintView from "@/components/QuotationPrintView";
+import ClassicQuotationDoc from "@/components/ClassicQuotationDoc";
+import ClassicQuotationPrintView from "@/components/ClassicQuotationPrintView";
+import ModernQuotationDoc from "@/components/ModernQuotationDoc";
+import ModernQuotationPrintView from "@/components/ModernQuotationPrintView";
 import { sampleState, sampleStateKiran, sampleStateRavi, blankState } from "@/lib/sampleData";
 import { fmt, computeTotals } from "@/lib/totals";
 import { listQuotes, loadQuote, saveQuote, deleteQuote, QuoteListItem } from "@/lib/quotesRepo";
@@ -103,6 +105,11 @@ export default function Home() {
     router.refresh();
   };
 
+  const handleTemplateChange = (template: QuoteState["template"]) => setState((s) => ({ ...s, template }));
+
+  const Doc = state.template === "modern" ? ModernQuotationDoc : ClassicQuotationDoc;
+  const PrintView = state.template === "modern" ? ModernQuotationPrintView : ClassicQuotationPrintView;
+
   return (
     <>
       <div className="screen-only">
@@ -121,10 +128,12 @@ export default function Home() {
           onLogout={handleLogout}
           pillTotal={pillTotal}
           busy={busy}
+          template={state.template}
+          onTemplateChange={handleTemplateChange}
         />
-        <QuotationDoc state={state} setState={setState} />
+        <Doc state={state} setState={setState} />
       </div>
-      <QuotationPrintView state={state} />
+      <PrintView state={state} />
     </>
   );
 }

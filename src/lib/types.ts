@@ -1,4 +1,5 @@
 export type Purpose = "OWN" | "RENT";
+export type TemplateId = "classic" | "modern";
 
 export interface ClientInfo {
   name: string;
@@ -52,6 +53,7 @@ export interface Terms {
 }
 
 export interface QuoteState {
+  template: TemplateId;
   client: ClientInfo;
   companyIntro: string;
   companyAbout: string;

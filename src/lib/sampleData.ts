@@ -7,6 +7,7 @@ export const uid = () => "r" + (uidCounter++);
 
 export function sampleState(): QuoteState {
   return {
+    template:"classic",
     client:{
       name:"Mr Ranjith R", place:"Bengaluru", location:"Mango Acres (Begur Koppa Road)",
       khatha:"Panchayat Khatha", siteDim:"25 X 55", roadFacing:"East", setback:"1200 sqft after setback",
