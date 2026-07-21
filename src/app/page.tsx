@@ -108,6 +108,8 @@ export default function Home() {
   };
 
   const handleTemplateChange = (template: QuoteState["template"]) => setState((s) => ({ ...s, template }));
+  const handlePageBreakModeChange = (pageBreakMode: QuoteState["pageBreakMode"]) =>
+    setState((s) => ({ ...s, pageBreakMode }));
 
   const Doc = state.template === "modern" ? ModernQuotationDoc : ClassicQuotationDoc;
   const PrintView = state.template === "modern" ? ModernQuotationPrintView : ClassicQuotationPrintView;
@@ -133,6 +135,8 @@ export default function Home() {
           busy={busy}
           template={state.template}
           onTemplateChange={handleTemplateChange}
+          pageBreakMode={state.pageBreakMode}
+          onPageBreakModeChange={handlePageBreakModeChange}
         />
         <Doc state={state} setState={setState} />
       </div>

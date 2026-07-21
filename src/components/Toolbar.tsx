@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import type { QuoteListItem } from "@/lib/quotesRepo";
-import type { TemplateId } from "@/lib/types";
+import type { PageBreakMode, TemplateId } from "@/lib/types";
 
 interface Props {
   quotes: QuoteListItem[];
@@ -22,6 +22,8 @@ interface Props {
   busy: boolean;
   template: TemplateId;
   onTemplateChange: (template: TemplateId) => void;
+  pageBreakMode: PageBreakMode;
+  onPageBreakModeChange: (mode: PageBreakMode) => void;
 }
 
 export default function Toolbar({
@@ -42,6 +44,8 @@ export default function Toolbar({
   busy,
   template,
   onTemplateChange,
+  pageBreakMode,
+  onPageBreakModeChange,
 }: Props) {
   return (
     <div className="toolbar">
@@ -78,6 +82,15 @@ export default function Toolbar({
       <select value={template} onChange={(e) => onTemplateChange(e.target.value as TemplateId)} disabled={busy}>
         <option value="classic">Template: Classic</option>
         <option value="modern">Template: Modern</option>
+      </select>
+      <select
+        value={pageBreakMode}
+        onChange={(e) => onPageBreakModeChange(e.target.value as PageBreakMode)}
+        disabled={busy}
+        title="Natural: sections flow continuously, no blank space. Forced: every numbered section starts on a fresh page, which can leave short sections mostly blank."
+      >
+        <option value="natural">Page Breaks: Flowing</option>
+        <option value="forced">Page Breaks: Forced per Section</option>
       </select>
       <button className="tbtn tbtn-teal" onClick={onSave} disabled={busy}>
         Save

@@ -31,7 +31,7 @@ export default function ClassicQuotationPrintView({ state }: Props) {
   const totals = computeTotals(state);
 
   return (
-    <div className="page print-only">
+    <div className={`page print-only${state.pageBreakMode === "forced" ? " force-section-breaks" : ""}`}>
       <div className="doc">
         <div className="cover">
           <Image

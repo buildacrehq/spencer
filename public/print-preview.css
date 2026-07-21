@@ -12,11 +12,6 @@
    only. The real PDF export is unaffected (rendered by the actual browser
    engine, not Paged.js, so nth-of-type works normally there).
 
-   When you edit globals.css, copy the change here too, or Page Preview
-   will drift from the real print/export output. Regenerate with:
-   tail -n +2 src/app/globals.css | sed '/nth-of-type(6n/d' > public/print-preview.css
-   (run from the repo root). */
-
 
 /* ---------------------------------------------------------------
    Ported verbatim (selectors/values unchanged) from
@@ -286,14 +281,16 @@ textarea.field-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 
      entirely in print and keep only the colored top accent + spacing, so
      there's nothing left to look broken no matter where it splits. */
   .spec-block{border:none;border-top:3px solid var(--clay);border-radius:0;box-shadow:none;background:transparent;padding:14px 0 6px 0;margin:0 0 28px 0;}
-  /* Each numbered section (02-08) starts on its own fresh page rather than
-     continuing on whatever page came before it — requested 2026-07-20.
-     Section 01 is deliberately excluded: it's short (just the client kv
-     grid) and naturally fits on the same page as the cover, which is also
-     short — forcing a break there left the entire rest of page 1 empty
-     (reported 2026-07-21). */
+  /* Default is "natural" flow: sections continue on the current page and
+     only break where they'd otherwise land awkwardly (heading orphaned at
+     the bottom, or a block torn mid-content — handled below). Forcing every
+     section onto its own fresh page (the old default) left short sections
+     — Floor Plan, Foundation Work, Base Cost — with most of the page blank
+     (reported 2026-07-21). ".force-section-breaks" on the page container
+     (Toolbar → Page Breaks: Forced per Section) restores that old behavior
+     for anyone who wants the guaranteed-fresh-page look over density. */
   h2.doctitle{page-break-after:avoid;break-after:avoid;}
-  h2.doctitle:not(:first-of-type){page-break-before:always;break-before:page;}
+  .force-section-breaks h2.doctitle:not(:first-of-type){page-break-before:always;break-before:page;}
   h3.subhead{page-break-after:avoid;break-after:avoid;}
   /* Protect individual rows/heads from splitting mid-content, but let tall
      blocks/tables span multiple pages — avoiding a break on the whole
@@ -420,10 +417,10 @@ textarea.mod-field{resize:vertical;line-height:1.6;}
 
 @media print{
   .mod-doc{box-shadow:none;border-radius:0;}
-  /* Same exclusion as Classic's h2.doctitle rule above — section 01 shares
-     the cover's page, sections 02-08 each force a fresh page. */
+  /* Same "natural" default as Classic's h2.doctitle rule above — see that
+     comment for why. .force-section-breaks restores the forced-break mode. */
   .mod-heading{page-break-after:avoid;break-after:avoid;}
-  .mod-section:not(:first-of-type) .mod-heading{page-break-before:always;break-before:page;}
+  .force-section-breaks .mod-section:not(:first-of-type) .mod-heading{page-break-before:always;break-before:page;}
   .mod-spec-row, .mod-table tr, .mod-numlist-item{page-break-inside:avoid;break-inside:avoid;}
   .mod-spec-group-head{page-break-after:avoid;break-after:avoid;}
   .mod-block{page-break-inside:avoid;break-inside:avoid;}

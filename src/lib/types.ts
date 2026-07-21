@@ -1,5 +1,6 @@
 export type Purpose = "OWN" | "RENT";
 export type TemplateId = "classic" | "modern";
+export type PageBreakMode = "natural" | "forced";
 
 export interface ClientInfo {
   name: string;
@@ -54,6 +55,7 @@ export interface Terms {
 
 export interface QuoteState {
   template: TemplateId;
+  pageBreakMode: PageBreakMode;
   client: ClientInfo;
   companyIntro: string;
   companyAbout: string;

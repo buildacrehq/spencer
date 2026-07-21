@@ -23,7 +23,7 @@ export default function ModernQuotationPrintView({ state }: Props) {
   const totals = computeTotals(state);
 
   return (
-    <div className="mod-page print-only">
+    <div className={`mod-page print-only${state.pageBreakMode === "forced" ? " force-section-breaks" : ""}`}>
       <div className="mod-doc">
         <div className="mod-cover">
           <div className="mod-cover-top">
